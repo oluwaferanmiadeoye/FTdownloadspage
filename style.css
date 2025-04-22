@@ -1,0 +1,1047 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #f0f0f0;
+  color: #333;
+  line-height: 1.6;
+}
+
+nav.main-nav {
+  background-color: #ffffff;
+  color: #333;
+  padding: 28px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  border-right: 1px solid #ccc;
+  position: fixed;
+  height: 100vh;
+  width: 5%;
+  top: 0;
+}
+
+nav.main-nav i {
+  font-size: 24px;
+  color: #000000;
+  cursor: pointer;
+}
+
+.container {
+  width: calc(100% - 5%);
+  background: #ffffff;
+  margin: 0px 0px 0px 5%;
+  height: 100vh;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 19px;
+  border-bottom: 1px solid #ccc;
+}
+
+.header .user a i {
+  font-size: 24px;
+  margin-right: 9px;
+  color: #000000;
+}
+
+.header img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.search-container {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+}
+
+.search-box {
+  width: 100%;
+  padding: 16px 10px 16px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 20px;
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.1);
+  color: #000000;
+  transition: all 0.3s ease;
+  outline: none;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.search-box::placeholder {
+  color: #ccc;
+  transition: all 0.3s ease;
+}
+
+.search-box:focus::placeholder {
+  opacity: 0;
+  transform: translateX(10px);
+}
+
+.search-icon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  fill: #000000;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.search-icon:hover {
+  fill: #b1313b;
+}
+
+.clear-icon {
+  position: absolute;
+  right: 46px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #ccc;
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.search-box:not(:placeholder-shown) ~ .clear-icon {
+  opacity: 1;
+}
+
+.recent-downloads {
+  padding: 20px;
+  max-width: 100%;
+  overflow: hidden;
+  border-bottom: 1px solid #ccc;
+  max-height: calc(100vh - 100px);
+}
+
+.recent-downloads h2 {
+  font-size: 13px;
+  color: #333;
+}
+
+/* Filter Controls */
+.filter-controls {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.filter-group {
+  position: relative;
+}
+
+.filter-btn {
+  padding: 0.5rem 1rem;
+  padding-right: 2rem;
+  border-radius: 20px;
+  border: 1px solid #e0e0e0;
+  background: white;
+  color: #333;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+  position: relative;
+  white-space: nowrap;
+}
+
+.filter-btn:hover {
+  background: #f5f5f5;
+}
+
+.filter-btn.active {
+  background: #333;
+  color: white;
+  border-color: #333;
+}
+
+.dropdown-icon {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: transform 0.2s ease;
+}
+
+.filter-group.active .dropdown-icon {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 200px;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: none;
+  padding: 1rem;
+  margin-top: 0.5rem;
+  z-index: 1000;
+}
+
+.date-filters {
+  pointer-events: auto;
+}
+
+.filter-group.active .dropdown-menu {
+  display: block;
+}
+
+.date-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.date-filters select {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  width: 100%;
+}
+
+.date-filters select:focus {
+  outline: none;
+  border-color: #666;
+}
+
+.downloads-container {
+  position: relative;
+}
+
+.downloads-scroller {
+  display: flex;
+  gap: 15px;
+  padding: 10px 0;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.downloads-scroller::-webkit-scrollbar {
+  display: none;
+}
+
+.download-card {
+  position: relative;
+  width: 200px;
+  height: 220px;
+  background: #f5f5f5;
+  border-radius: 10px;
+  padding: 11px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+  margin-bottom: 15px;
+}
+
+.download-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.download-card img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.card-content {
+  margin-top: 5px;
+  flex-grow: 1;
+  max-height: 60px;
+  overflow: hidden;
+}
+
+.card-content h4 {
+  font-size: 0.85rem;
+  margin: 0;
+  line-height: 1.2;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-content small {
+  font-size: 0.7rem;
+  color: #666;
+  margin-top: 2px;
+  display: block;
+}
+
+.card-actions {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  gap: 10px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.download-card:hover .card-actions {
+  opacity: 1;
+}
+
+.action-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  opacity: 0;
+}
+
+.downloads-container:hover .scroll-btn {
+  opacity: 1;
+}
+
+.scroll-btn:hover {
+  background: #b1313b;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.scroll-btn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.scroll-btn svg {
+  width: 18px;
+  height: 18px;
+  stroke: #333;
+}
+
+.scroll-btn.left {
+  left: -10px;
+}
+
+.scroll-btn.right {
+  right: -10px;
+}
+
+.scroll-btn.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.no-results {
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+  color: #666;
+  font-size: 1rem;
+}
+
+.scroll-btn.disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.featured-documents {
+  padding: 20px;
+  max-width: 100%;
+  background: #ffffff;
+}
+
+.featured-documents h2 {
+  font-size: 13px;
+  color: #333;
+}
+
+.featured-container {
+  position: relative;
+}
+
+.featured-scroller {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 200px);
+  gap: 0px;
+  padding: 10px 0;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+@keyframes cardEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.featured-scroller .download-card {
+  background: #f5f5f5;
+  width: 200px;
+  height: 220px;
+  border-radius: 10px;
+  padding: 11px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex-shrink: 0;
+  animation: cardEntrance 0.5s ease-out forwards;
+  opacity: 0;
+}
+
+.featured-scroller .download-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.featured-scroller .download-card .card-content {
+  margin-top: 5px;
+  flex-grow: 1;
+  max-height: 60px;
+  overflow: hidden;
+}
+
+.featured-scroller .download-card .card-content h4 {
+  font-size: 0.85rem;
+  margin: 0;
+  line-height: 1.2;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.featured-scroller .download-card .card-content small {
+  font-size: 0.7rem;
+  color: #666;
+  margin-top: 2px;
+  display: block;
+}
+
+/* Modal (Popup) Styles */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  text-align: center;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 20px;
+  cursor: pointer;
+  color: #666;
+}
+
+.modal-content h3 {
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.modal-option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.modal-option i {
+  margin-right: 8px;
+}
+
+.modal-option:hover {
+  background-color: #e0e0e0;
+}
+
+/* Media View */
+
+@media (max-width: 991px) {
+  nav.main-nav {
+    width: 60px;
+    padding: 20px 10px;
+  }
+
+  .container {
+    width: calc(100% - 60px);
+    margin-left: 60px;
+  }
+
+  .header {
+    padding: 10px 15px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .search-container {
+    max-width: 400px;
+    flex-grow: 1;
+  }
+
+  .search-box {
+    font-size: 0.9rem;
+    padding: 12px 10px 12px 15px;
+  }
+
+  .header img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .header .user a i {
+    font-size: 20px;
+    margin-right: 7px;
+  }
+
+  .filter-controls {
+    gap: 0.5rem;
+  }
+
+  .filter-btn {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+    padding-right: 1.8rem;
+  }
+
+  .dropdown-menu {
+    width: 180px;
+    padding: 0.8rem;
+  }
+
+  .date-filters select {
+    font-size: 0.8rem;
+    padding: 0.4rem;
+  }
+
+  .recent-downloads {
+    padding: 15px;
+  }
+
+  .recent-downloads h2 {
+    font-size: 12px;
+  }
+
+  .downloads-scroller {
+    gap: 12px;
+  }
+
+  .download-card {
+    width: 180px;
+    height: 200px;
+    padding: 10px;
+  }
+
+  .download-card img {
+    height: 110px;
+  }
+
+  .card-content h4 {
+    font-size: 0.8rem;
+    line-height: 1.1;
+  }
+
+  .card-content small {
+    font-size: 0.65rem;
+  }
+
+  .card-actions {
+    bottom: 10px;
+    right: 10px;
+    gap: 8px;
+  }
+
+  .action-btn {
+    width: 28px;
+    height: 28px;
+  }
+
+  .scroll-btn {
+    width: 35px;
+    height: 35px;
+  }
+
+  .scroll-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .featured-documents {
+    padding: 15px;
+  }
+
+  .featured-documents h2 {
+    font-size: 12px;
+  }
+
+  .featured-scroller {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+  }
+
+  .featured-scroller .download-card {
+    width: 180px;
+    height: 200px;
+    padding: 10px;
+  }
+  .modal-content {
+    width: 280px;
+    padding: 15px;
+  }
+
+  .modal-content h3 {
+    font-size: 16px;
+  }
+
+  .modal-option {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .modal-close {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 767px) {
+  nav.main-nav {
+    width: 100%;
+    height: 60px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    top: 0;
+    left: 0;
+    border-right: none;
+    border-bottom: 1px solid #ccc;
+    z-index: 1000;
+  }
+
+  nav.main-nav i {
+    font-size: 20px;
+  }
+
+  .container {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 60px;
+    height: calc(100vh - 60px);
+  }
+
+  /* Header */
+  .header {
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+    gap: 8px;
+  }
+
+  .search-container {
+    width: 50%;
+    max-width: none;
+  }
+
+  .search-box {
+    font-size: 0.85rem;
+    padding: 10px 10px 10px 15px;
+    border-radius: 15px;
+  }
+
+  .search-icon {
+    right: 12px;
+    width: 18px;
+    height: 18px;
+  }
+
+  .clear-icon {
+    right: 40px;
+    font-size: 16px;
+  }
+
+  .header img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .header .user a i {
+    font-size: 18px;
+    margin-right: 5px;
+  }
+
+  /* Filter controls */
+  .filter-controls {
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .filter-btn {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.8rem;
+    padding-right: 1.5rem;
+    width: 100%;
+    text-align: left;
+  }
+
+  .dropdown-icon {
+    right: 0.5rem;
+  }
+
+  .dropdown-menu {
+    width: 100%;
+    max-width: 300px;
+    padding: 0.75rem;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 120px;
+  }
+
+  .date-filters select {
+    font-size: 0.75rem;
+    padding: 0.4rem;
+  }
+
+  /* Recent downloads */
+  .recent-downloads {
+    padding: 10px;
+    max-height: calc(100vh - 160px);
+  }
+
+  .recent-downloads h2 {
+    font-size: 11px;
+  }
+
+  .downloads-scroller {
+    gap: 10px;
+    padding: 8px 0;
+  }
+
+  .downloads-scroller {
+    gap: 10px;
+    padding: 8px 0;
+    margin: 0 10px;
+  }
+
+  .download-card img {
+    height: 100px;
+    border-radius: 4px;
+  }
+
+  .card-content {
+    max-height: 50px;
+  }
+
+  .card-content h4 {
+    font-size: 0.75rem;
+    line-height: 1.1;
+    -webkit-line-clamp: 2;
+  }
+
+  .card-content small {
+    font-size: 0.6rem;
+    margin-top: 1px;
+  }
+
+  .card-actions {
+    bottom: 8px;
+    right: 8px;
+    gap: 6px;
+    opacity: 1;
+  }
+
+  .action-btn {
+    width: 26px;
+    height: 26px;
+  }
+
+  .scroll-btn {
+    width: 30px;
+    height: 30px;
+    opacity: 1;
+  }
+
+  .scroll-btn svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .scroll-btn.left {
+    left: 0;
+  }
+
+  .scroll-btn.right {
+    right: 0;
+  }
+
+  /* Featured documents */
+  .featured-documents {
+    padding: 10px;
+    width: 100%;
+  }
+
+  .featured-documents h2 {
+    font-size: 11px;
+  }
+
+  .featured-container {
+    margin: 0 10px;
+  }
+
+  .featured-scroller {
+    grid-template-columns: repeat(auto-fit, 260px);
+    gap: 10px;
+    padding: 8px 0;
+    justify-content: flex-start;
+    margin: 0;
+    width: calc(100% - 20px);
+  }
+
+  .featured-scroller .download-card {
+    width: 360px;
+    height: 180px;
+    padding: 8px;
+    margin: 0;
+  }
+
+  .featured-scroller .download-card img {
+    height: 100px;
+    border-radius: 4px;
+  }
+
+  .featured-scroller .card-content {
+    max-height: 50px;
+  }
+
+  .featured-scroller .card-content h4 {
+    font-size: 0.75rem;
+    line-height: 1.1;
+  }
+
+  .featured-scroller .card-content small {
+    font-size: 0.6rem;
+    margin-top: 1px;
+  }
+
+  /* Modal */
+  .modal-content {
+    width: 90%;
+    max-width: 280px;
+    padding: 12px;
+  }
+
+  .modal-content h3 {
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
+
+  .modal-option {
+    font-size: 13px;
+    padding: 8px;
+    margin: 8px 0;
+  }
+
+  .modal-close {
+    font-size: 16px;
+    top: 8px;
+    right: 12px;
+  }
+
+  /* No results message */
+  .no-results {
+    font-size: 0.9rem;
+    padding: 15px;
+  }
+
+  body {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+}
+
+@media (max-width: 479px) {
+  nav.main-nav {
+    padding: 0 10px;
+    height: 50px;
+  }
+
+  .container {
+    margin-top: 50px;
+    height: calc(100vh - 50px);
+  }
+
+  .header {
+    padding: 8px;
+  }
+
+  .search-box {
+    font-size: 0.8rem;
+    padding: 8px 8px 8px 12px;
+  }
+
+  .search-icon {
+    right: 10px;
+    width: 16px;
+    height: 16px;
+  }
+
+  .clear-icon {
+    right: 35px;
+    font-size: 14px;
+  }
+
+  .filter-btn {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
+    padding-right: 1.2rem;
+  }
+
+  .dropdown-menu {
+    max-width: 250px;
+    top: 110px;
+  }
+
+  .recent-downloads {
+    padding: 8px;
+  }
+
+  .download-card {
+    width: 140px;
+    height: 160px;
+    padding: 6px;
+  }
+
+  .download-card img {
+    height: 90px;
+  }
+
+  .card-content {
+    max-height: 45px;
+  }
+
+  .card-content h4 {
+    font-size: 0.7rem;
+  }
+
+  .card-content small {
+    font-size: 0.55rem;
+  }
+
+  .card-actions {
+    bottom: 6px;
+    right: 6px;
+  }
+
+  .action-btn {
+    width: 24px;
+    height: 24px;
+  }
+
+  .scroll-btn {
+    width: 28px;
+    height: 28px;
+  }
+
+  .featured-scroller {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+
+  .featured-scroller .download-card {
+    width: 140px;
+    height: 160px;
+    padding: 6px;
+  }
+
+  .modal-content {
+    width: 95%;
+    padding: 10px;
+  }
+
+  .modal-content h3 {
+    font-size: 13px;
+  }
+
+  .modal-option {
+    font-size: 12px;
+    padding: 6px;
+  }
+}

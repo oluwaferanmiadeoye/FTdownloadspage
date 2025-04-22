@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="shortcut icon" href="lfw_.png" type="image/x-icon" />
+    <title>Download Page | Living Faith Church</title>
+  </head>
+  <body>
+    <nav class="main-nav"><i class="fa-solid fa-bars"></i></nav>
+    <div class="container">
+      <section class="header">
+        <div class="logo">
+          <img src="lfw_.png" alt="Living Faith Church Logo" />
+        </div>
+        <div class="search-container">
+          <input
+            type="text"
+            class="search-box"
+            id="searchInput"
+            placeholder="Search"
+          />
+          <button class="clear-icon" onclick="clearSearch()">✖</button>
+          <svg
+            class="search-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 22 24"
+          >
+            <path
+              d="M10 2a8 8 0 105.293 14.293l5.707 5.707 1.414-1.414-5.707-5.707A8 8 0 0010 2zm0 2a6 6 0 110 12 6 6 0 010-12z"
+            />
+          </svg>
+        </div>
+        <div class="user">
+          <a href=""><i class="fas fa-circle-user"></i></a>
+        </div>
+      </section>
+
+      <section class="recent-downloads">
+        <div class="header-container">
+          <h2>Recent Documents</h2>
+          <div class="filter-controls">
+            <!-- All Downloads Filter -->
+            <div class="filter-group">
+              <button class="filter-btn active" data-type="all">
+                All
+                <svg
+                  class="dropdown-icon"
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M7 10l5 5 5-5z" />
+                </svg>
+              </button>
+              <div class="dropdown-menu">
+                <div class="date-filters">
+                  <select class="year-select">
+                    <option value="">All Years</option>
+                  </select>
+                  <select class="month-select">
+                    <option value="">All Months</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="filter-group">
+              <button class="filter-btn" data-type="Events">
+                Events
+                <svg
+                  class="dropdown-icon"
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M7 10l5 5 5-5z" />
+                </svg>
+              </button>
+              <div class="dropdown-menu">
+                <div class="date-filters">
+                  <select class="year-select">
+                    <option value="">All Years</option>
+                  </select>
+                  <select class="month-select">
+                    <option value="">All Months</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="filter-group">
+              <button class="filter-btn" data-type="Next">
+                Next Sunday at Faith Tabernacle
+                <svg
+                  class="dropdown-icon"
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M7 10l5 5 5-5z" />
+                </svg>
+              </button>
+              <div class="dropdown-menu">
+                <div class="date-filters">
+                  <select class="year-select">
+                    <option value="">All Years</option>
+                  </select>
+                  <select class="month-select">
+                    <option value="">All Months</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <!-- Prophetic Focus Filter -->
+            <div class="filter-group">
+              <button class="filter-btn" data-type="Prophetic Focus">
+                Prophetic Focus
+                <svg
+                  class="dropdown-icon"
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M7 10l5 5 5-5z" />
+                </svg>
+              </button>
+              <div class="dropdown-menu">
+                <div class="date-filters" onclick="event.stopPropagation()">
+                  <select class="year-select">
+                    <option value="">All Years</option>
+                  </select>
+                  <select class="month-select">
+                    <option value="">All Months</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <!-- Inspirational Filter -->
+            <div class="filter-group">
+              <button class="filter-btn" data-type="Inspirational">
+                Inspirational
+                <svg
+                  class="dropdown-icon"
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M7 10l5 5 5-5z" />
+                </svg>
+              </button>
+              <div class="dropdown-menu">
+                <div class="date-filters">
+                  <select class="year-select">
+                    <option value="">All Years</option>
+                  </select>
+                  <select class="month-select">
+                    <option value="">All Months</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <!-- Prayer Guidelines Filter -->
+            <div class="filter-group">
+              <button class="filter-btn" data-type="Prayer Guidelines">
+                Prayer Guidelines
+                <svg
+                  class="dropdown-icon"
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M7 10l5 5 5-5z" />
+                </svg>
+              </button>
+              <div class="dropdown-menu">
+                <div class="date-filters">
+                  <select class="year-select">
+                    <option value="">All Years</option>
+                  </select>
+                  <select class="month-select">
+                    <option value="">All Months</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <!-- Special Invitations Filter -->
+            <div class="filter-group">
+              <button class="filter-btn" data-type="Special Invitations">
+                Special Invitations
+                <svg
+                  class="dropdown-icon"
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M7 10l5 5 5-5z" />
+                </svg>
+              </button>
+              <div class="dropdown-menu">
+                <div class="date-filters">
+                  <select class="year-select">
+                    <option value="">All Years</option>
+                  </select>
+                  <select class="month-select">
+                    <option value="">All Months</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <!-- Prophetic focus (Yearly) -->
+            <div class="filter-group">
+              <button class="filter-btn" data-type="Year">
+                Prophetic Focus (Yearly)
+                <svg
+                  class="dropdown-icon"
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M7 10l5 5 5-5z" />
+                </svg>
+              </button>
+              <div class="dropdown-menu">
+                <div class="date-filters">
+                  <select class="year-select">
+                    <option value="">All Years</option>
+                  </select>
+                  <select class="month-select">
+                    <option value="">All Months</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="filter-group">
+              <button class="filter-btn" data-type="Shiloh">
+                Shiloh Documents
+                <svg
+                  class="dropdown-icon"
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M7 10l5 5 5-5z" />
+                </svg>
+              </button>
+              <div class="dropdown-menu">
+                <div class="date-filters">
+                  <select class="year-select">
+                    <option value="">All Years</option>
+                  </select>
+                  <select class="month-select">
+                    <option value="">All Months</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="filter-group">
+              <button class="filter-btn" data-type="Others">
+                Other Documents
+                <svg
+                  class="dropdown-icon"
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M7 10l5 5 5-5z" />
+                </svg>
+              </button>
+              <div class="dropdown-menu">
+                <div class="date-filters">
+                  <select class="year-select">
+                    <option value="">All Years</option>
+                  </select>
+                  <select class="month-select">
+                    <option value="">All Months</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="downloads-container">
+          <button class="scroll-btn left" aria-label="Scroll left">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+          </button>
+          <div id="downloads-scroller" class="downloads-scroller">
+            <!-- Cards will be added here dynamically -->
+          </div>
+          <button class="scroll-btn right" aria-label="Scroll right">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </button>
+        </div>
+      </section>
+      <!-- Featured Documents Section -->
+      <section class="featured-documents">
+        <div class="header-container">
+          <h2>Featured Documents</h2>
+        </div>
+        <div class="featured-container">
+          <div id="featured-scroller" class="featured-scroller">
+            <!-- Cards will be added here dynamically -->
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Download Options Popup -->
+    <div id="downloadModal" class="modal">
+      <div class="modal-content">
+        <span id="modalClose" class="modal-close">×</span>
+        <h3 id="modalTitle">Download Options</h3>
+        <p
+          id="modalSubtitle"
+          style="font-size: 14px; color: #666; margin-bottom: 15px"
+        ></p>
+        <button id="addToLibraryBtn" class="modal-option">
+          <i class="fas fa-book"></i> Add to Library
+        </button>
+        <button id="downloadNowBtn" class="modal-option">
+          <i class="fas fa-download"></i> Download Now
+        </button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
