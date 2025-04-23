@@ -188,6 +188,39 @@ nav.main-nav i {
   transform: translateY(-50%) rotate(180deg);
 }
 
+.filters-toggle-btn {
+  display: none; /* Hidden by default on larger screens */
+  padding: 0.5rem 1rem;
+  padding-right: 2rem;
+  border-radius: 20px;
+  border: 1px solid #e0e0e0;
+  background: white;
+  color: #333;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+  position: relative;
+  white-space: nowrap;
+  width: 100%;
+  text-align: left;
+}
+
+.filters-toggle-btn:hover {
+  background: #f5f5f5;
+}
+
+.filters-toggle-btn .dropdown-icon {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: transform 0.2s ease;
+}
+
+.filters-toggle-btn.active .dropdown-icon {
+  transform: translateY(-50%) rotate(180deg);
+}
+
 /* Dropdown Menu */
 .dropdown-menu {
   position: absolute;
@@ -497,18 +530,43 @@ nav.main-nav i {
   position: relative;
 }
 
+#modalThumbnail {
+  max-width: 70%; /* Smaller size (~210px for 300px modal, adjust to 60% or 200px if needed) */
+  height: auto;
+  margin: 15px auto 20px; /* Increased top margin to avoid overlap with close button */
+  border-radius: 4px;
+  display: block;
+}
+
+.modal-actions {
+  display: flex;
+  flex-direction: column; /* Stack buttons vertically for better spacing in narrow modal */
+  gap: 10px; /* Space between buttons */
+  margin-top: 20px;
+}
+
 .modal-close {
   position: absolute;
   top: 10px;
   right: 15px;
-  font-size: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
   cursor: pointer;
-  color: #666;
+  line-height: 1;
+  padding: 5px;
+  transition: color 0.2s;
+  margin-bottom: 30px; /* Increased margin for more separation */
+}
+
+.modal-close:hover {
+  color: #ff0000;
 }
 
 .modal-content h3 {
-  margin-bottom: 20px;
+  margin: 0 0 20px;
   font-size: 18px;
+  line-height: 1.4;
 }
 
 .modal-option {
@@ -517,12 +575,15 @@ nav.main-nav i {
   justify-content: center;
   width: 100%;
   padding: 10px;
-  margin: 10px 0;
+  margin: 0; /* Removed margin since gap is handled by .modal-actions */
   border: 1px solid #ccc;
   border-radius: 4px;
   background-color: #f9f9f9;
   cursor: pointer;
   font-size: 16px;
+  transition: background-color 0.2s;
+  z-index: 1002; /* Ensure close button is clickable */
+  pointer-events: auto;
 }
 
 .modal-option i {
@@ -748,6 +809,50 @@ nav.main-nav i {
   }
 
   /* Filter controls */
+
+  .filters-toggle-btn {
+    display: block; /* Show button on mobile */
+    margin-top: 0.5rem;
+  }
+
+  .filter-controls {
+    display: none; /* Hide by default on mobile */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 0.75rem;
+    z-index: 1000;
+    flex-direction: column;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
+  .filter-controls.active {
+    display: flex; /* Show when toggled */
+  }
+
+  .filter-btn {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .dropdown-menu {
+    position: static;
+    width: 100%;
+    margin-top: 0.5rem;
+    border: none;
+    box-shadow: none;
+    padding: 0.5rem;
+  }
+
+  .filter-group.active .dropdown-menu {
+    display: block;
+  }
   .filter-controls {
     flex-direction: column;
     gap: 0.5rem;
@@ -868,16 +973,18 @@ nav.main-nav i {
   }
 
   .featured-scroller {
-    grid-template-columns: repeat(auto-fit, 260px);
-    gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3px;
     padding: 8px 0;
-    justify-content: flex-start;
-    margin: 0;
-    width: calc(100% - 20px);
+    display: grid;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0px;
+    width: 118%;
   }
 
   .featured-scroller .download-card {
-    width: 360px;
+    min-width: 150px;
     height: 180px;
     padding: 8px;
     margin: 0;
@@ -886,6 +993,7 @@ nav.main-nav i {
   .featured-scroller .download-card img {
     height: 100px;
     border-radius: 4px;
+    width: 100%;
   }
 
   .featured-scroller .card-content {
@@ -1007,7 +1115,7 @@ nav.main-nav i {
   }
 
   .card-actions {
-    bottom: 6px;
+    bottom: 1px;
     right: 6px;
   }
 
@@ -1022,11 +1130,16 @@ nav.main-nav i {
   }
 
   .featured-scroller {
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(155px, 2fr));
+    display: grid;
+    justify-content: space-between;
+    grid-gap: 14px;
+    margin: auto;
+    width: 97%;
   }
 
   .featured-scroller .download-card {
-    width: 140px;
+    width: 155px;
     height: 160px;
     padding: 6px;
   }
@@ -1043,5 +1156,6 @@ nav.main-nav i {
   .modal-option {
     font-size: 12px;
     padding: 6px;
+    margin-bottom: 0px;
   }
 }

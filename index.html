@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    />
     <link rel="stylesheet" href="style.css" />
     <link
       rel="stylesheet"
@@ -44,6 +47,18 @@
       <section class="recent-downloads">
         <div class="header-container">
           <h2>Recent Documents</h2>
+
+          <button class="filters-toggle-btn" aria-label="Toggle Filters">
+            Filters
+            <svg
+              class="dropdown-icon"
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+            >
+              <path d="M7 10l5 5 5-5z" />
+            </svg>
+          </button>
           <div class="filter-controls">
             <!-- All Downloads Filter -->
             <div class="filter-group">
@@ -336,20 +351,24 @@
     </div>
 
     <!-- Download Options Popup -->
-    <div id="downloadModal" class="modal">
+    <div id="downloadModal" class="modal" style="display: none">
       <div class="modal-content">
         <span id="modalClose" class="modal-close">×</span>
-        <h3 id="modalTitle">Download Options</h3>
-        <p
-          id="modalSubtitle"
-          style="font-size: 14px; color: #666; margin-bottom: 15px"
-        ></p>
-        <button id="addToLibraryBtn" class="modal-option">
-          <i class="fas fa-book"></i> Add to Library
-        </button>
-        <button id="downloadNowBtn" class="modal-option">
-          <i class="fas fa-download"></i> Download Now
-        </button>
+        <img
+          id="modalThumbnail"
+          src=""
+          alt="Document Thumbnail"
+          style="display: none"
+        />
+        <h3 id="modalSubtitle">Document Title</h3>
+        <div class="modal-actions">
+          <button id="addToLibraryBtn" class="modal-option">
+            <i class="fas fa-book"></i> Add to Library
+          </button>
+          <button id="downloadNowBtn" class="modal-option">
+            <i class="fas fa-download"></i> Download Now
+          </button>
+        </div>
       </div>
     </div>
 

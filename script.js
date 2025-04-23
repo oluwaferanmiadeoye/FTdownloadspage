@@ -11,7 +11,7 @@ const downloadsData = [
   {
     id: 2,
     title: 'PROPHETIC FOCUS FOR THE MONTH OF APRIL: I AM REDEEMED A WONDER TO MY WORLD - JOHN 3:8',
-    date: '2025-04-01',
+    date: '2025-04-01',
     type: 'Prophetic Focus',
     thumbnail: 'Images/prophetic-focus/april2025.png',
     downloadUrl: 'https://faithtabernacle.org.ng/2025/APRIL2025Focus.pdf?v=2.4'
@@ -368,7 +368,7 @@ const downloadsData = [
     thumbnail: 'whatmust.png',
     downloadUrl: 'https://faithtabernacle.org.ng/2024/WhatmustIdotodelivermycovenantednumberofsouls.pdf?v=2.3'
   },
-  {
+    {
     id: 47,
     title: 'TO MAKE THE MOST OF THIS PROPHETIC SEASON, EVERY WINNER MUST:',
     date: '2024-06-01',
@@ -446,6 +446,7 @@ if (searchInput && clearBtn) {
 
 // Initialize when DOM loads
 document.addEventListener('DOMContentLoaded', function () {
+  setupFiltersToggleButton();
   const downloadsScroller = document.getElementById('downloads-scroller');
   const featuredScroller = document.getElementById('featured-scroller');
   if (!downloadsScroller || !featuredScroller) {
@@ -456,61 +457,43 @@ document.addEventListener('DOMContentLoaded', function () {
   renderFilteredCards();
   renderFeaturedCards();
   updateScrollButtons();
+  initializeModalListeners();
 });
 
-// Initialize modal listeners (run once)
-function initializeModalListeners() {
-  console.log('Initializing modal listeners...'); // Debug log
-  const modal = document.getElementById('downloadModal');
-  const addToLibraryBtn = document.getElementById('addToLibraryBtn');
-  const downloadNowBtn = document.getElementById('downloadNowBtn');
-  const closeModalBtn = document.getElementById('modalClose');
-  const modalSubtitle = document.getElementById('modalSubtitle');
+// Toggle Filters Button for Mobile
+function setupFiltersToggleButton() {
+  const filtersToggleBtn = document.querySelector('.filters-toggle-btn');
+  const filterControls = document.querySelector('.filter-controls');
 
-  if (!modal || !addToLibraryBtn || !downloadNowBtn || !closeModalBtn || !modalSubtitle) {
-    console.error('Modal elements not found:', {
-      modal: !!modal,
-      addToLibraryBtn: !!addToLibraryBtn,
-      downloadNowBtn: !!downloadNowBtn,
-      closeModalBtn: !!closeModalBtn,
-      modalSubtitle: !!modalSubtitle
+  if (filtersToggleBtn && filterControls) {
+    filtersToggleBtn.addEventListener('click', function (e) {
+      const isActive = filterControls.classList.contains('active');
+      // Close all filter group dropdowns
+      document.querySelectorAll('.filter-group').forEach((group) => {
+        group.classList.remove('active');
+      });
+      // Toggle the filter controls
+      this.classList.toggle('active', !isActive);
+      filterControls.classList.toggle('active', !isActive);
+      e.stopPropagation(); // Prevent closing dropdowns when clicking the button
     });
-    return;
+
+    // Close filter controls when clicking outside
+    document.addEventListener('click', (e) => {
+      if (
+        !e.target.closest('.filters-toggle-btn') &&
+        !e.target.closest('.filter-controls') &&
+        filterControls.classList.contains('active')
+      ) {
+        filtersToggleBtn.classList.remove('active');
+        filterControls.classList.remove('active');
+        // Close all filter group dropdowns
+        document.querySelectorAll('.filter-group').forEach((group) => {
+          group.classList.remove('active');
+        });
+      }
+    });
   }
-
-  // Handle "Add to Library" action
-  addToLibraryBtn.addEventListener('click', () => {
-    console.log('Add to Library clicked'); // Debug log
-    addToLibrary(window.currentCardTitle, window.currentDownloadUrl);
-    modal.style.display = 'none';
-    window.currentDownloadBtn = null; // Reset the button reference
-  });
-
-  // Handle "Download Now" action
-  downloadNowBtn.addEventListener('click', () => {
-    console.log('Download Now clicked'); // Debug log
-    modal.style.display = 'none';
-    if (window.currentDownloadBtn) {
-      downloadFile(window.currentDownloadUrl, window.currentCardTitle, window.currentDownloadBtn);
-    }
-    window.currentDownloadBtn = null; // Reset the button reference
-  });
-
-  // Close modal when clicking the close button
-  closeModalBtn.addEventListener('click', () => {
-    console.log('Modal close button clicked'); // Debug log
-    modal.style.display = 'none';
-    window.currentDownloadBtn = null; // Reset the button reference
-  });
-
-  // Close modal when clicking outside
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) {
-      console.log('Clicked outside modal to close'); // Debug log
-      modal.style.display = 'none';
-      window.currentDownloadBtn = null; // Reset the button reference
-    }
-  });
 }
 
 // Initialize filters
@@ -704,7 +687,7 @@ function renderFeaturedCards(searchQuery = '') {
   const scroller = document.getElementById('featured-scroller');
   if (!scroller) {
     console.error("Cannot render featured cards: 'featured-scroller' element not found.");
-    returnsemispace
+    return;
   }
 
   const currentType = activeFilters.currentType;
@@ -776,7 +759,6 @@ function renderFeaturedCards(searchQuery = '') {
   setupButtonListeners();
 }
 
-// Set up scroll, download, and share button listeners
 function setupButtonListeners() {
   console.log('Setting up button listeners...'); // Debug log
   const downloadsScroller = document.getElementById('downloads-scroller');
@@ -801,40 +783,53 @@ function setupButtonListeners() {
 
   // Download button event delegation
   document.querySelectorAll('.download-btn').forEach((btn) => {
-    // Remove existing listeners by cloning the node
     const newBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(newBtn, btn);
 
     newBtn.addEventListener('click', function (e) {
       console.log('Download button clicked:', this); // Debug log
-      e.preventDefault(); // Prevent any default behavior
+      e.preventDefault();
       const modal = document.getElementById('downloadModal');
       const modalSubtitle = document.getElementById('modalSubtitle');
+      const modalThumbnail = document.getElementById('modalThumbnail');
       const addToLibraryBtn = document.getElementById('addToLibraryBtn');
       const downloadNowBtn = document.getElementById('downloadNowBtn');
 
-      if (!modal || !modalSubtitle || !addToLibraryBtn || !downloadNowBtn) {
-        console.error('Modal elements missing for download');
+      if (!modal || !modalSubtitle || !modalThumbnail || !addToLibraryBtn || !downloadNowBtn) {
+        console.error('Modal elements missing for download', {
+          modal: !!modal,
+          modalSubtitle: !!modalSubtitle,
+          modalThumbnail: !!modalThumbnail,
+          addToLibraryBtn: !!addToLibraryBtn,
+          downloadNowBtn: !!downloadNowBtn
+        });
         return;
       }
 
       window.currentDownloadUrl = this.dataset.url;
       window.currentCardTitle = this.closest('.download-card').querySelector('h4').textContent;
-      window.currentDownloadBtn = this; // Store the button reference
+      window.currentThumbnail = this.closest('.download-card').querySelector('img').src;
+      window.currentDownloadBtn = this;
 
       if (!window.currentDownloadUrl || window.currentDownloadUrl === '#' || window.currentDownloadUrl.trim() === '') {
         alert(`Download link for "${window.currentCardTitle}" is not available or invalid.`);
         return;
       }
 
-      // Reset modal state
       downloadNowBtn.disabled = false;
       downloadNowBtn.innerHTML = '<i class="fas fa-download"></i> Download Now';
       addToLibraryBtn.disabled = false;
       addToLibraryBtn.innerHTML = '<i class="fas fa-book"></i> Add to Library';
       modalSubtitle.textContent = window.currentCardTitle;
+      
+      if (window.currentThumbnail) {
+        modalThumbnail.src = window.currentThumbnail;
+        modalThumbnail.style.display = 'block';
+        modalThumbnail.alt = `Thumbnail for ${window.currentCardTitle}`;
+      } else {
+        modalThumbnail.style.display = 'none';
+      }
 
-      // Show the modal
       console.log('Showing modal...'); // Debug log
       modal.style.display = 'flex';
       console.log('Modal display style:', modal.style.display); // Debug log
@@ -843,7 +838,6 @@ function setupButtonListeners() {
 
   // Share button functionality
   document.querySelectorAll('.share-btn').forEach((btn) => {
-    // Remove existing listeners by cloning the node
     const newBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(newBtn, btn);
 
@@ -900,24 +894,81 @@ function addToLibrary(title, url) {
   }
 }
 
+function initializeModalListeners() {
+  console.log('Initializing modal listeners...'); // Debug log
+  const modal = document.getElementById('downloadModal');
+  const addToLibraryBtn = document.getElementById('addToLibraryBtn');
+  const downloadNowBtn = document.getElementById('downloadNowBtn');
+  const closeModalBtn = document.getElementById('modalClose');
+  const modalSubtitle = document.getElementById('modalSubtitle');
+
+  // Check for missing elements
+  if (!modal || !addToLibraryBtn || !downloadNowBtn || !closeModalBtn || !modalSubtitle) {
+    console.error('Modal elements not found:', {
+      modal: !!modal,
+      addToLibraryBtn: !!addToLibraryBtn,
+      downloadNowBtn: !!downloadNowBtn,
+      closeModalBtn: !!closeModalBtn,
+      modalSubtitle: !!modalSubtitle
+    });
+    return;
+  }
+
+  // Handle "Add to Library" action
+  addToLibraryBtn.addEventListener('click', () => {
+    console.log('Add to Library clicked'); // Debug log
+    addToLibrary(window.currentCardTitle, window.currentDownloadUrl);
+    modal.style.display = 'none';
+    window.currentDownloadBtn = null;
+  });
+
+  // Handle "Download Now" action
+  downloadNowBtn.addEventListener('click', () => {
+    console.log('Download Now clicked'); // Debug log
+    modal.style.display = 'none';
+    if (window.currentDownloadBtn) {
+      downloadFile(window.currentDownloadUrl, window.currentCardTitle, window.currentDownloadBtn);
+    }
+    window.currentDownloadBtn = null;
+  });
+
+  // Close modal when clicking the close button
+  closeModalBtn.addEventListener('click', (e) => {
+    e.stopPropagation(); // Prevent event bubbling to modal
+    console.log('Modal close button clicked'); // Debug log
+    modal.style.display = 'none';
+    window.currentDownloadBtn = null;
+  });
+
+  // Close modal when clicking outside
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      console.log('Clicked outside modal to close'); // Debug log
+      modal.style.display = 'none';
+      window.currentDownloadBtn = null;
+    }
+  });
+
+  // Debug: Log when listeners are added
+  console.log('Modal listeners initialized:', {
+    closeModalBtn: closeModalBtn,
+    modal: modal
+  });
+}
+
 // Function to download file
 function downloadFile(downloadUrl, cardTitle, button) {
   console.log('Opening URL:', downloadUrl, cardTitle); // Debug log
-
-  // to Validate URL
   if (!downloadUrl || downloadUrl === '#' || downloadUrl.trim() === '') {
-      console.error('Invalid download URL:', downloadUrl);
-      alert(`Download link for "${cardTitle}" is not available or invalid.`);
-      return;
+    console.error('Invalid download URL:', downloadUrl);
+    alert(`Download link for "${cardTitle}" is not available or invalid.`);
+    return;
   }
-
-  // for target _blank
   window.open(downloadUrl, '_blank');
-
   console.log(`Opened in new tab: ${cardTitle} (${downloadUrl})`);
 }
 
-//  scroll button visibility
+// Update scroll button visibility
 function updateScrollButtons() {
   const scroller = document.getElementById('downloads-scroller');
   const leftBtn = document.querySelector('.scroll-btn.left');
@@ -929,8 +980,3 @@ function updateScrollButtons() {
   leftBtn.classList.toggle('disabled', scroller.scrollLeft <= 0);
   rightBtn.classList.toggle('disabled', scroller.scrollLeft >= maxScrollLeft - 1);
 }
-
-// To Initialize modal  
-document.addEventListener('DOMContentLoaded', function () {
-  initializeModalListeners();
-});
