@@ -1137,8 +1137,8 @@ nav.main-nav i {
     display: none;
     position: absolute;
     top: calc(100% + 0.5rem);
-    left: 0;
-    right: 0;
+    left: 8px; /* Add padding to align with content */
+    right: 8px; /* Add padding to align with content */
     background: white;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
@@ -1146,24 +1146,33 @@ nav.main-nav i {
     padding: 1rem;
     z-index: 1000;
     flex-direction: column;
-    max-height: 70vh; /* Increased for more visible filters */
-    overflow-y: scroll; /* Force visible scrollbar */
+    max-height: calc(70vh - 120px); /* Adjust for header and toggle button */
+    overflow-y: scroll; /* Enable vertical scrolling */
+    overflow-x: auto; /* Enable horizontal scrolling */
     -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-    scrollbar-width: auto; /* Firefox: visible scrollbar */
-    scrollbar-color: #ccc #f5f5f5; /* Firefox: scrollbar styling */
+    scrollbar-width: thin; /* Firefox: thinner scrollbar for both directions */
+    scrollbar-color: #888 #f5f5f5; /* Firefox: darker thumb for visibility */
+    min-width: 100%; /* Ensure it takes full width of parent */
+    box-sizing: border-box; /* Include padding in width calculations */
   }
 
   .filter-controls::-webkit-scrollbar {
-    width: 8px; /* Chrome/Safari: visible scrollbar */
+    width: 6px; /* Chrome/Safari: narrower vertical scrollbar */
+    height: 6px; /* Chrome/Safari: narrower horizontal scrollbar */
   }
 
   .filter-controls::-webkit-scrollbar-track {
     background: #f5f5f5;
+    border-radius: 8px;
   }
 
   .filter-controls::-webkit-scrollbar-thumb {
-    background: #ccc;
-    border-radius: 4px;
+    background: #888; /* Darker thumb for visibility */
+    border-radius: 8px;
+  }
+
+  .filter-controls::-webkit-scrollbar-thumb:hover {
+    background: #555;
   }
 
   .filter-controls.active {
@@ -1177,6 +1186,10 @@ nav.main-nav i {
     margin-bottom: 0.5rem;
     border-radius: 4px;
     font-size: 0.85rem; /* Slightly larger for readability */
+    white-space: nowrap; /* Prevent text wrapping */
+    text-overflow: ellipsis; /* Add ellipsis if text overflows */
+    overflow: hidden; /* Hide overflowed text */
+    min-width: fit-content; /* Ensure button doesn’t shrink too much */
   }
 
   .dropdown-menu {
@@ -1186,8 +1199,9 @@ nav.main-nav i {
     margin-bottom: 0.75rem;
     border: none;
     box-shadow: none;
-    padding: 0 0.5rem;
+    padding: 0;
     max-width: none; /* Override max-width: 250px */
+    min-width: fit-content; /* Allow content to dictate width */
   }
 
   .filter-group.active .dropdown-menu {
@@ -1200,8 +1214,9 @@ nav.main-nav i {
     align-items: center; /* Center year/month dropdowns */
     gap: 0.5rem;
     width: 100%;
-    max-width: 200px; /* Constrain for better centering */
+    max-width: 180px; /* Constrain to fit viewport */
     margin: 0 auto; /* Center within dropdown-menu */
+    min-width: fit-content; /* Allow content to dictate width */
   }
 
   .year-select,
@@ -1212,6 +1227,13 @@ nav.main-nav i {
     border-radius: 4px;
     font-size: 0.85rem;
     text-align: center; /* Center text in dropdowns */
+    background: white; /* Ensure visibility */
+    min-width: 120px; /* Minimum width to prevent shrinking */
+  }
+
+  .year-select option,
+  .month-select option {
+    text-align: center; /* Center dropdown options */
   }
 
   .featured-scroller {

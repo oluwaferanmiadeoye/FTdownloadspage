@@ -482,7 +482,11 @@ function setupFiltersToggleButton() {
       } else {
         this.classList.add('active');
         filterControls.classList.add('active');
-        filterControls.scrollTop = 0; // Scroll to top when opening
+        filterControls.scrollTop = 0; // Scroll to top
+        // Force layout reflow to ensure scrollbar renders
+        filterControls.style.display = 'none';
+        filterControls.offsetHeight; // Trigger reflow
+        filterControls.style.display = 'flex';
       }
     });
 
@@ -506,7 +510,10 @@ function setupFiltersToggleButton() {
       e.stopPropagation();
     });
   }
-}
+}document.addEventListener('DOMContentLoaded', function () {
+  setupFiltersToggleButton();
+  // Your existing initialization code (e.g., initFilters, renderFilteredCards, etc.)
+});
 
 // Initialize filters
 function initFilters() {
