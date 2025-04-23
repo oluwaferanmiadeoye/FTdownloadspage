@@ -467,15 +467,23 @@ function setupFiltersToggleButton() {
 
   if (filtersToggleBtn && filterControls) {
     filtersToggleBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
       const isActive = filterControls.classList.contains('active');
-      // Close all filter group dropdowns
+      
+      // Close all filter group dropdowns to reset state
       document.querySelectorAll('.filter-group').forEach((group) => {
         group.classList.remove('active');
       });
-      // Toggle the filter controls
-      this.classList.toggle('active', !isActive);
-      filterControls.classList.toggle('active', !isActive);
-      e.stopPropagation(); // Prevent closing dropdowns when clicking the button
+
+      // Toggle visibility
+      if (isActive) {
+        this.classList.remove('active');
+        filterControls.classList.remove('active');
+      } else {
+        this.classList.add('active');
+        filterControls.classList.add('active');
+        filterControls.scrollTop = 0; // Scroll to top when opening
+      }
     });
 
     // Close filter controls when clicking outside
@@ -487,11 +495,15 @@ function setupFiltersToggleButton() {
       ) {
         filtersToggleBtn.classList.remove('active');
         filterControls.classList.remove('active');
-        // Close all filter group dropdowns
         document.querySelectorAll('.filter-group').forEach((group) => {
           group.classList.remove('active');
         });
       }
+    });
+
+    // Prevent filter-controls clicks from closing the dropdown
+    filterControls.addEventListener('click', (e) => {
+      e.stopPropagation();
     });
   }
 }
