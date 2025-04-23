@@ -131,11 +131,12 @@ nav.main-nav i {
 .recent-downloads {
   padding: 20px;
   max-width: 100%;
-  overflow: hidden;
+  max-height: calc(100vh - 100px); /* Constrain height */
+  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-x: hidden; /* Prevent horizontal scrolling on the parent */
   border-bottom: 1px solid #ccc;
-  max-height: calc(100vh - 100px);
+  position: relative; /* Ensure positioning context for children */
 }
-
 .recent-downloads h2 {
   font-size: 13px;
   color: #333;
@@ -193,30 +194,32 @@ nav.main-nav i {
 .dropdown-menu {
   position: absolute;
   top: 100%;
-  left: 0;
-  width: 200px;
+  left: 0; /* Align with the left edge of .filter-btn */
+  width: auto; /* Let the content determine the width */
+  min-width: 150px; /* Ensure enough space for dropdowns */
   background: white;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  display: none;
-  padding: 1rem;
+  padding: 0.75rem; /* Reduced padding for a tighter fit */
   margin-top: 0.5rem;
   z-index: 1000;
+  display: none;
 }
 
-.date-filters {
-  pointer-events: auto;
+.date-filters select option {
+  text-align: center;
 }
 
 .filter-group.active .dropdown-menu {
   display: block;
 }
-
 .date-filters {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  width: 100%; /* Match the width of .dropdown-menu */
+  pointer-events: auto;
 }
 
 .date-filters select {
@@ -225,6 +228,8 @@ nav.main-nav i {
   border-radius: 4px;
   font-size: 0.85rem;
   width: 100%;
+  text-align: center; /* Center the text inside the dropdown */
+  background: white;
 }
 
 .date-filters select:focus {
@@ -240,16 +245,19 @@ nav.main-nav i {
   display: flex;
   gap: 15px;
   padding: 10px 0;
-  overflow-x: auto;
+  overflow-x: auto; /* Horizontal scrolling */
+  overflow-y: visible; /* Allow content to overflow vertically for parent to handle */
   scroll-behavior: smooth;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  flex-wrap: nowrap; /* Keep cards in a single row */
 }
 
 .downloads-scroller::-webkit-scrollbar {
-  display: none;
+  display: none; /* Hide horizontal scrollbar */
 }
 
+/* Ensure cards don’t cause vertical overflow issues */
 .download-card {
   position: relative;
   width: 200px;
@@ -260,7 +268,7 @@ nav.main-nav i {
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease;
-  flex-shrink: 0;
+  flex-shrink: 0; /* Prevent shrinking in flex layout */
   margin-bottom: 15px;
 }
 
@@ -649,8 +657,12 @@ nav.main-nav i {
   }
 
   .dropdown-menu {
-    width: 180px;
-    padding: 0.8rem;
+    min-width: 140px; /* Slightly smaller for tablet */
+    padding: 0.6rem;
+  }
+
+  .date-filters {
+    gap: 0.5rem;
   }
 
   .date-filters select {
@@ -871,13 +883,17 @@ nav.main-nav i {
   }
 
   .dropdown-menu {
-    width: 100%;
-    max-width: 300px;
-    padding: 0.75rem;
-    position: fixed;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 120px;
+    position: absolute; /* Override the fixed positioning */
+    top: 100%;
+    left: 0; /* Align with .filter-btn */
+    width: auto;
+    min-width: 130px;
+    padding: 0.5rem;
+    transform: none; /* Remove centering transform */
+  }
+
+  .date-filters {
+    gap: 0.5rem;
   }
 
   .date-filters select {
@@ -888,22 +904,26 @@ nav.main-nav i {
   /* Recent downloads */
   .recent-downloads {
     padding: 10px;
-    max-height: calc(100vh - 160px);
+    max-height: calc(100vh - 160px); /* Adjusted for mobile header */
+    overflow-y: auto; /* Ensure vertical scrolling */
+    overflow-x: hidden;
   }
 
   .recent-downloads h2 {
     font-size: 11px;
   }
-
-  .downloads-scroller {
-    gap: 10px;
-    padding: 8px 0;
-  }
-
   .downloads-scroller {
     gap: 10px;
     padding: 8px 0;
     margin: 0 10px;
+    overflow-x: auto;
+    overflow-y: visible;
+  }
+
+  .download-card {
+    width: 180px;
+    height: 200px;
+    padding: 10px;
   }
 
   .download-card img {
@@ -1081,14 +1101,91 @@ nav.main-nav i {
     padding: 0.3rem 0.6rem;
     padding-right: 1.2rem;
   }
+  .filter-controls {
+    display: none;
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 8px;
+    right: 8px;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    z-index: 1000;
+    flex-direction: column;
+    max-height: calc(70vh - 120px);
+    overflow-y: scroll;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f5f5f5;
+    min-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .filter-controls.active {
+    display: flex;
+  }
+
+  .filter-btn {
+    width: 100%;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    min-width: fit-content;
+  }
 
   .dropdown-menu {
-    max-width: 250px;
-    top: 110px;
+    position: static;
+    width: 100%; /* Match the width of .filter-btn */
+    margin-top: 0.25rem;
+    margin-bottom: 0.75rem;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    min-width: fit-content;
+  }
+
+  .date-filters {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%; /* Match the width of .dropdown-menu */
+  }
+
+  .year-select,
+  .month-select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    text-align: center; /* Center text in dropdowns */
+    background: white;
+  }
+
+  .year-select option,
+  .month-select option {
+    text-align: center; /* Center dropdown options */
   }
 
   .recent-downloads {
     padding: 8px;
+    max-height: calc(100vh - 160px); /* Consistent with 767px */
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .downloads-scroller {
+    gap: 10px;
+    padding: 8px 0;
+    margin: 0 10px;
   }
 
   .download-card {
