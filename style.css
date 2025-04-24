@@ -1146,7 +1146,7 @@ nav.main-nav i {
   }
 
   .download-card {
-    width: 140px;
+    width: 180px;
     height: 160px;
     padding: 6px;
   }
@@ -1293,14 +1293,14 @@ nav.main-nav i {
   .featured-scroller {
     grid-template-columns: repeat(auto-fit, minmax(155px, 2fr));
     display: grid;
-    justify-content: space-between;
-    grid-gap: 5px;
-    margin: auto;
+    justify-content: flex-start;
+    grid-gap: 2px;
+    margin: 2px 0px;
     width: 97%;
   }
 
   .featured-scroller .download-card {
-    width: 155px;
+    width: 180px;
     height: 160px;
     padding: 6px;
   }
