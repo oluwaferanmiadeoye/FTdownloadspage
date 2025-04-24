@@ -11,7 +11,7 @@ const downloadsData = [
   {
     id: 2,
     title: 'PROPHETIC FOCUS FOR THE MONTH OF APRIL: I AM REDEEMED A WONDER TO MY WORLD - JOHN 3:8',
-    date: '2025-04-01',
+    date: '2025-04-01', // Fixed syntax error (removed invalid character '')
     type: 'Prophetic Focus',
     thumbnail: 'Images/prophetic-focus/april2025.png',
     downloadUrl: 'https://faithtabernacle.org.ng/2025/APRIL2025Focus.pdf?v=2.4'
@@ -368,7 +368,7 @@ const downloadsData = [
     thumbnail: 'whatmust.png',
     downloadUrl: 'https://faithtabernacle.org.ng/2024/WhatmustIdotodelivermycovenantednumberofsouls.pdf?v=2.3'
   },
-    {
+  {
     id: 47,
     title: 'TO MAKE THE MOST OF THIS PROPHETIC SEASON, EVERY WINNER MUST:',
     date: '2024-06-01',
@@ -469,13 +469,14 @@ function setupFiltersToggleButton() {
     filtersToggleBtn.addEventListener('click', function (e) {
       e.stopPropagation();
       const isActive = filterControls.classList.contains('active');
-      
-      // Close all filter group dropdowns to reset state
+
+      // Close all filter group dropdowns and reset visibility
       document.querySelectorAll('.filter-group').forEach((group) => {
         group.classList.remove('active');
+        group.classList.remove('hidden'); // Reset visibility of all filter groups
       });
 
-      // Toggle visibility
+      // Toggle visibility of filter controls
       if (isActive) {
         this.classList.remove('active');
         filterControls.classList.remove('active');
@@ -501,6 +502,7 @@ function setupFiltersToggleButton() {
         filterControls.classList.remove('active');
         document.querySelectorAll('.filter-group').forEach((group) => {
           group.classList.remove('active');
+          group.classList.remove('hidden'); // Reset visibility
         });
       }
     });
@@ -510,10 +512,13 @@ function setupFiltersToggleButton() {
       e.stopPropagation();
     });
   }
-}document.addEventListener('DOMContentLoaded', function () {
-  setupFiltersToggleButton();
-  // Your existing initialization code (e.g., initFilters, renderFilteredCards, etc.)
-});
+}
+
+document
+        .querySelector("filters-toggle-btn")
+        .addEventListener("click", () =>
+          document.querySelector(".filter-controls").classList.toggle("")
+        );
 
 // Initialize filters
 function initFilters() {
@@ -684,7 +689,7 @@ function renderFilteredCards(searchQuery = '') {
             <line x1="12" y1="15" x2="12" y2="3"></line>
           </svg>
         </button>
-        <button class="action-btn share-btn" data-url="${item.downloadUrl}"  target="_blank">
+        <button class="action-btn share-btn" data-url="${item.downloadUrl}" target="_blank">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <circle cx="18" cy="5" r="3"></circle>
             <circle cx="6" cy="12" r="3"></circle>

@@ -1243,7 +1243,7 @@ nav.main-nav i {
     padding: 1rem;
     z-index: 1000;
     flex-direction: column;
-    max-height: calc(70vh - 120px); /* Adjust for header and toggle button */
+    max-height: calc(80vh - 120px); /* Adjust for header and toggle button */
     overflow-y: scroll; /* Enable vertical scrolling */
     overflow-x: auto; /* Enable horizontal scrolling */
     -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
