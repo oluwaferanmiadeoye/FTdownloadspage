@@ -1294,15 +1294,16 @@ nav.main-nav i {
     grid-template-columns: repeat(auto-fit, minmax(155px, 2fr));
     display: grid;
     justify-content: flex-start;
-    grid-gap: 2px;
-    margin: 2px 0px;
+    grid-gap: 10px;
+    margin: auto;
     width: 97%;
   }
 
   .featured-scroller .download-card {
-    width: 180px;
+    width: 170px;
     height: 160px;
     padding: 6px;
+    margin: 0px;
   }
 
   .modal-content {
