@@ -1064,7 +1064,6 @@ nav.main-nav i {
     line-height: 1.5;
   }
 }
-
 @media (max-width: 479px) {
   nav.main-nav {
     padding: 0 10px;
@@ -1096,54 +1095,11 @@ nav.main-nav i {
     font-size: 14px;
   }
 
-  .filter-btn {
-    font-size: 0.7rem;
-    padding: 0.3rem 0.6rem;
-    padding-right: 1.2rem;
-  }
-  .filter-controls {
-    display: none;
-    position: absolute;
-    top: calc(100% + 0.5rem);
-    left: 8px;
-    right: 8px;
-    background: white;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 1rem;
-    z-index: 1000;
-    flex-direction: column;
-    max-height: calc(70vh - 120px);
-    overflow-y: scroll;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-    scrollbar-color: #888 #f5f5f5;
-    min-width: 100%;
-    box-sizing: border-box;
-  }
-
-  .filter-controls.active {
-    display: flex;
-  }
-
-  .filter-btn {
-    width: 100%;
-    justify-content: space-between;
-    padding: 0.5rem 1rem;
-    margin-bottom: 0.5rem;
-    border-radius: 4px;
-    font-size: 0.85rem;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    min-width: fit-content;
-  }
+  /* Removed the first .filter-btn block and merged into the second one below */
 
   .dropdown-menu {
     position: static;
-    width: 100%; /* Match the width of .filter-btn */
+    width: 100%;
     margin-top: 0.25rem;
     margin-bottom: 0.75rem;
     border: none;
@@ -1156,7 +1112,7 @@ nav.main-nav i {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    width: 100%; /* Match the width of .dropdown-menu */
+    width: 100%;
   }
 
   .year-select,
@@ -1166,18 +1122,18 @@ nav.main-nav i {
     border: 1px solid #e0e0e0;
     border-radius: 4px;
     font-size: 0.85rem;
-    text-align: center; /* Center text in dropdowns */
+    text-align: center;
     background: white;
   }
 
   .year-select option,
   .month-select option {
-    text-align: center; /* Center dropdown options */
+    text-align: center;
   }
 
   .recent-downloads {
     padding: 8px;
-    max-height: calc(100vh - 160px); /* Consistent with 767px */
+    max-height: calc(100vh - 160px);
     overflow-y: auto;
     overflow-x: hidden;
   }
@@ -1234,8 +1190,8 @@ nav.main-nav i {
     display: none;
     position: absolute;
     top: calc(100% + 0.5rem);
-    left: 8px; /* Add padding to align with content */
-    right: 8px; /* Add padding to align with content */
+    left: 8px;
+    right: 8px;
     background: white;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
@@ -1243,19 +1199,23 @@ nav.main-nav i {
     padding: 1rem;
     z-index: 1000;
     flex-direction: column;
-    max-height: calc(80vh - 120px); /* Adjust for header and toggle button */
-    overflow-y: scroll; /* Enable vertical scrolling */
-    overflow-x: auto; /* Enable horizontal scrolling */
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-    scrollbar-width: thin; /* Firefox: thinner scrollbar for both directions */
-    scrollbar-color: #888 #f5f5f5; /* Firefox: darker thumb for visibility */
-    min-width: 100%; /* Ensure it takes full width of parent */
-    box-sizing: border-box; /* Include padding in width calculations */
+    max-height: calc(100vh - 120px);
+    overflow-y: scroll;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f5f5f5;
+    min-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .filter-controls.active {
+    display: flex;
   }
 
   .filter-controls::-webkit-scrollbar {
-    width: 6px; /* Chrome/Safari: narrower vertical scrollbar */
-    height: 6px; /* Chrome/Safari: narrower horizontal scrollbar */
+    width: 6px;
+    height: 6px;
   }
 
   .filter-controls::-webkit-scrollbar-track {
@@ -1264,16 +1224,12 @@ nav.main-nav i {
   }
 
   .filter-controls::-webkit-scrollbar-thumb {
-    background: #888; /* Darker thumb for visibility */
+    background: #888;
     border-radius: 8px;
   }
 
   .filter-controls::-webkit-scrollbar-thumb:hover {
     background: #555;
-  }
-
-  .filter-controls.active {
-    display: flex;
   }
 
   .filter-btn {
@@ -1282,11 +1238,11 @@ nav.main-nav i {
     padding: 0.5rem 1rem;
     margin-bottom: 0.5rem;
     border-radius: 4px;
-    font-size: 0.85rem; /* Slightly larger for readability */
-    white-space: nowrap; /* Prevent text wrapping */
-    text-overflow: ellipsis; /* Add ellipsis if text overflows */
-    overflow: hidden; /* Hide overflowed text */
-    min-width: fit-content; /* Ensure button doesn’t shrink too much */
+    font-size: 0.85rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    min-width: fit-content;
   }
 
   .dropdown-menu {
@@ -1297,8 +1253,8 @@ nav.main-nav i {
     border: none;
     box-shadow: none;
     padding: 0;
-    max-width: none; /* Override max-width: 250px */
-    min-width: fit-content; /* Allow content to dictate width */
+    max-width: none;
+    min-width: fit-content;
   }
 
   .filter-group.active .dropdown-menu {
@@ -1308,12 +1264,12 @@ nav.main-nav i {
   .date-filters {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center year/month dropdowns */
+    align-items: center;
     gap: 0.5rem;
     width: 100%;
-    max-width: 180px; /* Constrain to fit viewport */
-    margin: 0 auto; /* Center within dropdown-menu */
-    min-width: fit-content; /* Allow content to dictate width */
+    max-width: 180px;
+    margin: 0 auto;
+    min-width: fit-content;
   }
 
   .year-select,
@@ -1323,14 +1279,14 @@ nav.main-nav i {
     border: 1px solid #e0e0e0;
     border-radius: 4px;
     font-size: 0.85rem;
-    text-align: center; /* Center text in dropdowns */
-    background: white; /* Ensure visibility */
-    min-width: 120px; /* Minimum width to prevent shrinking */
+    text-align: center;
+    background: white;
+    min-width: 120px;
   }
 
   .year-select option,
   .month-select option {
-    text-align: center; /* Center dropdown options */
+    text-align: center;
   }
 
   .featured-scroller {

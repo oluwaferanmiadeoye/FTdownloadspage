@@ -462,64 +462,53 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Toggle Filters Button for Mobile
 function setupFiltersToggleButton() {
-  const filtersToggleBtn = document.querySelector('.filters-toggle-btn');
-  const filterControls = document.querySelector('.filter-controls');
+  const filtersToggleBtn = document.querySelector(".filters-toggle-btn");
+  const filterControls = document.querySelector(".filter-controls");
 
   if (filtersToggleBtn && filterControls) {
-    filtersToggleBtn.addEventListener('click', function (e) {
+    filtersToggleBtn.addEventListener("click", function (e) {
       e.stopPropagation();
-      const isActive = filterControls.classList.contains('active');
+      const isActive = filterControls.classList.contains("active");
 
       // Close all filter group dropdowns and reset visibility
-      document.querySelectorAll('.filter-group').forEach((group) => {
-        group.classList.remove('active');
-        group.classList.remove('hidden'); // Reset visibility of all filter groups
+      document.querySelectorAll(".filter-group").forEach((group) => {
+        group.classList.remove("active");
+        group.classList.remove("hidden"); // Reset visibility of all filter groups
       });
 
       // Toggle visibility of filter controls
       if (isActive) {
-        this.classList.remove('active');
-        filterControls.classList.remove('active');
+        this.classList.remove("active");
+        filterControls.classList.remove("active");
       } else {
-        this.classList.add('active');
-        filterControls.classList.add('active');
+        this.classList.add("active");
+        filterControls.classList.add("active");
         filterControls.scrollTop = 0; // Scroll to top
-        // Force layout reflow to ensure scrollbar renders
-        filterControls.style.display = 'none';
-        filterControls.offsetHeight; // Trigger reflow
-        filterControls.style.display = 'flex';
       }
     });
 
     // Close filter controls when clicking outside
-    document.addEventListener('click', (e) => {
+    document.addEventListener("click", (e) => {
       if (
-        !e.target.closest('.filters-toggle-btn') &&
-        !e.target.closest('.filter-controls') &&
-        filterControls.classList.contains('active')
+        !e.target.closest(".filters-toggle-btn") &&
+        !e.target.closest(".filter-controls") &&
+        filterControls.classList.contains("active")
       ) {
-        filtersToggleBtn.classList.remove('active');
-        filterControls.classList.remove('active');
-        document.querySelectorAll('.filter-group').forEach((group) => {
-          group.classList.remove('active');
-          group.classList.remove('hidden'); // Reset visibility
+        filtersToggleBtn.classList.remove("active");
+        filterControls.classList.remove("active");
+        document.querySelectorAll(".filter-group").forEach((group) => {
+          group.classList.remove("active");
+          group.classList.remove("hidden"); // Reset visibility
         });
       }
     });
 
     // Prevent filter-controls clicks from closing the dropdown
-    filterControls.addEventListener('click', (e) => {
+    filterControls.addEventListener("click", (e) => {
       e.stopPropagation();
     });
   }
 }
-
-document
-        .querySelector("filters-toggle-btn")
-        .addEventListener("click", () =>
-          document.querySelector(".filter-controls").classList.toggle("")
-        );
-
 // Initialize filters
 function initFilters() {
   const allDates = downloadsData.map((item) => new Date(item.date));
