@@ -521,6 +521,67 @@ nav.main-nav i {
   transform: translateY(-50%) rotate(180deg);
 }
 
+.pagination-number-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid #e0e0e0;
+  background: white;
+  color: #333;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-direction: row;
+}
+
+.pagination-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.pagination-number-btn:hover {
+  background: #f5f5f5;
+}
+
+.pagination-number-btn.active {
+  background: #333;
+  color: white;
+  border-color: #333;
+}
+
+.pagination-icon-btn {
+  padding: 8px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  background: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-direction: row;
+}
+
+.pagination-icon-btn:hover {
+  background: #f5f5f5;
+}
+
+.pagination-icon-btn:disabled {
+  background: #f0f0f0;
+  cursor: not-allowed;
+}
+
+.pagination-icon-btn:disabled svg {
+  stroke: #999;
+}
+
 /* Modal (Popup) Styles */
 .modal {
   display: none;
@@ -1030,6 +1091,20 @@ nav.main-nav i {
     margin-top: 1px;
   }
 
+  .pagination {
+    gap: 8px;
+    padding: 15px 0;
+  }
+
+  .pagination-btn {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+
+  .pagination-info {
+    font-size: 0.8rem;
+  }
+
   /* Modal */
   .modal-content {
     width: 90%;
@@ -1304,6 +1379,20 @@ nav.main-nav i {
     height: 160px;
     padding: 6px;
     margin: 0px;
+  }
+
+  .pagination {
+    gap: 6px;
+    padding: 10px 0;
+  }
+
+  .pagination-btn {
+    padding: 5px 8px;
+    font-size: 0.75rem;
+  }
+
+  .pagination-info {
+    font-size: 0.75rem;
   }
 
   .modal-content {

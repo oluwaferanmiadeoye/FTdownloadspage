@@ -11,7 +11,7 @@ const downloadsData = [
   {
     id: 2,
     title: 'PROPHETIC FOCUS FOR THE MONTH OF APRIL: I AM REDEEMED A WONDER TO MY WORLD - JOHN 3:8',
-    date: '2025-04-01', // Fixed syntax error (removed invalid character '')
+    date: '2025-04-01',
     type: 'Prophetic Focus',
     thumbnail: 'Images/prophetic-focus/april2025.png',
     downloadUrl: 'https://faithtabernacle.org.ng/2025/APRIL2025Focus.pdf?v=2.4'
@@ -422,6 +422,10 @@ const activeFilters = {
   },
 };
 
+// Pagination state for featured documents
+const itemsPerPage = 10;
+let currentPage = 1;
+
 // Search bar functionality
 const searchInput = document.getElementById('searchInput');
 const clearBtn = document.querySelector('.clear-icon');
@@ -431,6 +435,7 @@ if (searchInput && clearBtn) {
     searchInput.value = '';
     searchInput.focus();
     clearBtn.style.opacity = '0';
+    currentPage = 1; // Reset to first page on search clear
     renderFilteredCards(); // Re-render both sections with no search query
     renderFeaturedCards();
   }
@@ -439,6 +444,7 @@ if (searchInput && clearBtn) {
 
   searchInput.addEventListener('input', function () {
     clearBtn.style.opacity = this.value ? '1' : '0';
+    currentPage = 1; // Reset to first page on search
     renderFilteredCards(this.value.trim()); // Pass search query to filter recent cards
     renderFeaturedCards(this.value.trim()); // Pass search query to filter featured cards
   });
@@ -509,6 +515,7 @@ function setupFiltersToggleButton() {
     });
   }
 }
+
 // Initialize filters
 function initFilters() {
   const allDates = downloadsData.map((item) => new Date(item.date));
@@ -555,6 +562,7 @@ function setupFilterButtons() {
       this.parentElement.classList.toggle('active');
 
       updateDateSelects();
+      currentPage = 1; // Reset to first page on filter change
       renderFilteredCards(searchInput ? searchInput.value.trim() : '');
       renderFeaturedCards(searchInput ? searchInput.value.trim() : '');
       updateScrollButtons();
@@ -573,6 +581,7 @@ function setupFilterButtons() {
       activeFilters.dateFilters[type].month = '';
       monthSelect.value = '';
       if (type === activeFilters.currentType) {
+        currentPage = 1; // Reset to first page on date filter change
         renderFilteredCards(searchInput ? searchInput.value.trim() : '');
         renderFeaturedCards(searchInput ? searchInput.value.trim() : '');
         updateScrollButtons();
@@ -582,6 +591,7 @@ function setupFilterButtons() {
     monthSelect.addEventListener('change', () => {
       activeFilters.dateFilters[type].month = monthSelect.value;
       if (type === activeFilters.currentType) {
+        currentPage = 1; // Reset to first page on date filter change
         renderFilteredCards(searchInput ? searchInput.value.trim() : '');
         renderFeaturedCards(searchInput ? searchInput.value.trim() : '');
         updateScrollButtons();
@@ -695,11 +705,12 @@ function renderFilteredCards(searchQuery = '') {
   setupButtonListeners();
 }
 
-// Render featured cards with search and filter support
+// Render featured cards with pagination, search, and filter support
 function renderFeaturedCards(searchQuery = '') {
   const scroller = document.getElementById('featured-scroller');
-  if (!scroller) {
-    console.error("Cannot render featured cards: 'featured-scroller' element not found.");
+  const paginationControls = document.getElementById('pagination-controls');
+  if (!scroller || !paginationControls) {
+    console.error("Cannot render featured cards: required elements not found.");
     return;
   }
 
@@ -727,14 +738,25 @@ function renderFeaturedCards(searchQuery = '') {
     return true;
   });
 
+  // Calculate pagination
+  const totalItems = filtered.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  currentPage = Math.min(currentPage, totalPages || 1); // Ensure currentPage doesn't exceed totalPages
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+  const paginatedItems = filtered.slice(startIndex, endIndex);
+
+  // Render cards
   scroller.innerHTML = '';
 
-  if (filtered.length === 0) {
+  if (paginatedItems.length === 0) {
     scroller.innerHTML = '<p class="no-results">No featured documents found</p>';
+    paginationControls.innerHTML = '';
     return;
   }
 
-  filtered.forEach((item) => {
+  paginatedItems.forEach((item) => {
     const card = document.createElement('div');
     card.className = 'download-card';
     card.innerHTML = `
@@ -769,7 +791,83 @@ function renderFeaturedCards(searchQuery = '') {
     scroller.appendChild(card);
   });
 
+  // Render pagination controls
+  renderPaginationControls(totalPages, totalItems, startIndex, endIndex);
+
   setupButtonListeners();
+}
+
+// Render pagination controls with updated layout
+function renderPaginationControls(totalPages, totalItems, startIndex, endIndex) {
+  const paginationControls = document.getElementById('pagination-controls');
+  paginationControls.innerHTML = '';
+
+  // Create a wrapper div to ensure row layout and centering
+  const paginationWrapper = document.createElement('div');
+  paginationWrapper.className = 'pagination-wrapper';
+
+  // Previous button with SVG icon
+  const prevBtn = document.createElement('button');
+  prevBtn.className = 'pagination-btn pagination-icon-btn';
+  prevBtn.innerHTML = `
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+    </svg>
+  `;
+  prevBtn.disabled = currentPage === 1;
+  prevBtn.addEventListener('click', () => {
+    if (currentPage > 1) {
+      currentPage--;
+      renderFeaturedCards(searchInput ? searchInput.value.trim() : '');
+    }
+  });
+  paginationWrapper.appendChild(prevBtn);
+
+  // Page numbers with circular style
+  const maxVisiblePages = 5;
+  let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+  let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+  // Adjust startPage if endPage is at the maximum
+  startPage = Math.max(1, endPage - maxVisiblePages + 1);
+
+  for (let i = startPage; i <= endPage; i++) {
+    const pageBtn = document.createElement('button');
+    pageBtn.className = 'pagination-btn pagination-number-btn';
+    pageBtn.classList.toggle('active', i === currentPage);
+    pageBtn.textContent = i;
+    pageBtn.addEventListener('click', () => {
+      currentPage = i;
+      renderFeaturedCards(searchInput ? searchInput.value.trim() : '');
+    });
+    paginationWrapper.appendChild(pageBtn);
+  }
+
+  // Next button with SVG icon
+  const nextBtn = document.createElement('button');
+  nextBtn.className = 'pagination-btn pagination-icon-btn';
+  nextBtn.innerHTML = `
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+    </svg>
+  `;
+  nextBtn.disabled = currentPage === totalPages;
+  nextBtn.addEventListener('click', () => {
+    if (currentPage < totalPages) {
+      currentPage++;
+      renderFeaturedCards(searchInput ? searchInput.value.trim() : '');
+    }
+  });
+  paginationWrapper.appendChild(nextBtn);
+
+  // Page info
+  const pageInfo = document.createElement('span');
+  pageInfo.className = 'pagination-info';
+  pageInfo.textContent = `${startIndex + 1}-${endIndex} of ${totalItems}`;
+  paginationWrapper.appendChild(pageInfo);
+
+  // Append the wrapper to pagination controls
+  paginationControls.appendChild(paginationWrapper);
 }
 
 function setupButtonListeners() {
