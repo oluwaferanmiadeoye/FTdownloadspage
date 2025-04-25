@@ -28,12 +28,79 @@ nav.main-nav {
   width: 5%;
   top: 0;
   z-index: 100000000;
+  transition: width 0.3s ease;
 }
 
-nav.main-nav i {
+nav.main-nav i.hamburger {
   font-size: 24px;
   color: #000000;
   cursor: pointer;
+  display: inline-block;
+  opacity: 1;
+  visibility: visible;
+}
+
+.hamburger-wrapper {
+  display: inline-block;
+  transition: transform 0.5s ease;
+  z-index: 100000001; /* Higher than both nav.main-nav and nav-menu */
+  position: relative; /* Apply the spin animation to the wrapper */
+}
+
+.hamburger-wrapper.active {
+  transform: rotate(360deg);
+}
+
+nav.main-nav i.hamburger.active {
+  transform: rotate(360deg);
+  opacity: 1; /* Ensure it stays visible after spinning */
+  visibility: visible;
+}
+
+.hamburger.fa-solid.fa-bars,
+.hamburger.fa-solid.fa-times {
+  opacity: 1;
+  visibility: visible;
+  display: inline-block;
+  color: #000000;
+}
+
+/* Optional: Ensure the nav menu doesn't interfere */
+.nav-menu.active {
+  left: 0; /* Adjust based on your existing styles */
+}
+
+.nav-menu {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100vh;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: left 0.5s ease;
+  z-index: 999;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.nav-links li a {
+  font-size: 24px;
+  color: #333;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-links li a:hover {
+  color: #b1313b;
 }
 
 .container {
@@ -49,7 +116,7 @@ nav.main-nav i {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 19px;
+  padding: 10px 12px;
   border-bottom: 1px solid #ccc;
 }
 
@@ -132,18 +199,17 @@ nav.main-nav i {
 .recent-downloads {
   padding: 20px;
   max-width: 100%;
-  max-height: calc(100vh - 100px); /* Constrain height */
-  overflow-y: auto; /* Enable vertical scrolling */
-  overflow-x: hidden; /* Prevent horizontal scrolling on the parent */
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  overflow-x: hidden;
   border-bottom: 1px solid #ccc;
-  position: relative; /* Ensure positioning context for children */
+  position: relative;
 }
 .recent-downloads h2 {
   font-size: 13px;
   color: #333;
 }
 
-/* Filter Controls */
 .filter-controls {
   display: flex;
   gap: 0.75rem;
@@ -191,18 +257,17 @@ nav.main-nav i {
   transform: translateY(-50%) rotate(180deg);
 }
 
-/* Dropdown Menu */
 .dropdown-menu {
   position: absolute;
   top: 100%;
-  left: 0; /* Align with the left edge of .filter-btn */
-  width: auto; /* Let the content determine the width */
-  min-width: 150px; /* Ensure enough space for dropdowns */
+  left: 0;
+  width: auto;
+  min-width: 150px;
   background: white;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 0.75rem; /* Reduced padding for a tighter fit */
+  padding: 0.75rem;
   margin-top: 0.5rem;
   z-index: 1000;
   display: none;
@@ -219,7 +284,7 @@ nav.main-nav i {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  width: 100%; /* Match the width of .dropdown-menu */
+  width: 100%;
   pointer-events: auto;
 }
 
@@ -229,7 +294,7 @@ nav.main-nav i {
   border-radius: 4px;
   font-size: 0.85rem;
   width: 100%;
-  text-align: center; /* Center the text inside the dropdown */
+  text-align: center;
   background: white;
 }
 
@@ -246,19 +311,18 @@ nav.main-nav i {
   display: flex;
   gap: 15px;
   padding: 10px 0;
-  overflow-x: auto; /* Horizontal scrolling */
-  overflow-y: visible; /* Allow content to overflow vertically for parent to handle */
+  overflow-x: auto;
+  overflow-y: visible;
   scroll-behavior: smooth;
   -ms-overflow-style: none;
   scrollbar-width: none;
-  flex-wrap: nowrap; /* Keep cards in a single row */
+  flex-wrap: nowrap;
 }
 
 .downloads-scroller::-webkit-scrollbar {
-  display: none; /* Hide horizontal scrollbar */
+  display: none;
 }
 
-/* Ensure cards don’t cause vertical overflow issues */
 .download-card {
   position: relative;
   width: 200px;
@@ -269,7 +333,7 @@ nav.main-nav i {
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease;
-  flex-shrink: 0; /* Prevent shrinking in flex layout */
+  flex-shrink: 0;
   margin-bottom: 15px;
 }
 
@@ -488,7 +552,6 @@ nav.main-nav i {
   position: relative;
 }
 
-/* Filters Toggle Button */
 .filters-toggle-btn {
   display: none;
   padding: 0.5rem 1rem;
@@ -582,7 +645,6 @@ nav.main-nav i {
   stroke: #999;
 }
 
-/* Modal (Popup) Styles */
 .modal {
   display: none;
   position: fixed;
@@ -606,17 +668,26 @@ nav.main-nav i {
 }
 
 #modalThumbnail {
-  max-width: 70%; /* Smaller size (~210px for 300px modal, adjust to 60% or 200px if needed) */
+  max-width: 70%;
   height: auto;
-  margin: 15px auto 20px; /* Increased top margin to avoid overlap with close button */
+  margin: 15px auto 20px;
   border-radius: 4px;
   display: block;
 }
 
+#shareModalThumbnail {
+  max-width: 100%;
+  height: auto;
+  max-height: 180px; /* Match the download modal's thumbnail height */
+  display: block;
+  margin: 0 auto 15px; /* Center and add spacing */
+  border-radius: 8px; /* Optional: match the download modal's style */
+}
+
 .modal-actions {
   display: flex;
-  flex-direction: column; /* Stack buttons vertically for better spacing in narrow modal */
-  gap: 10px; /* Space between buttons */
+  flex-direction: column;
+  gap: 10px;
   margin-top: 20px;
 }
 
@@ -631,7 +702,7 @@ nav.main-nav i {
   line-height: 1;
   padding: 5px;
   transition: color 0.2s;
-  margin-bottom: 30px; /* Increased margin for more separation */
+  margin-bottom: 30px;
 }
 
 .modal-close:hover {
@@ -644,20 +715,29 @@ nav.main-nav i {
   line-height: 1.4;
 }
 
+.modal-content img {
+  max-width: 100%;
+  height: auto;
+  max-height: 200px; /* Adjust this value based on the download modal's thumbnail size */
+  display: block;
+  margin: 0 auto 15px; /* Center the image and add spacing below */
+  border-radius: 8px; /* Optional: if the download modal's thumbnail has rounded corners */
+}
+
 .modal-option {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   padding: 10px;
-  margin: 0; /* Removed margin since gap is handled by .modal-actions */
+  margin: 0;
   border: 1px solid #ccc;
   border-radius: 4px;
   background-color: #f9f9f9;
   cursor: pointer;
   font-size: 16px;
   transition: background-color 0.2s;
-  z-index: 1002; /* Ensure close button is clickable */
+  z-index: 1002;
   pointer-events: auto;
 }
 
@@ -668,8 +748,6 @@ nav.main-nav i {
 .modal-option:hover {
   background-color: #e0e0e0;
 }
-
-/* Media View */
 
 @media (max-width: 991px) {
   nav.main-nav {
@@ -719,7 +797,7 @@ nav.main-nav i {
   }
 
   .dropdown-menu {
-    min-width: 140px; /* Slightly smaller for tablet */
+    min-width: 140px;
     padding: 0.6rem;
   }
 
@@ -836,7 +914,7 @@ nav.main-nav i {
     z-index: 1000;
   }
 
-  nav.main-nav i {
+  nav.main-nav i.hamburger {
     font-size: 20px;
   }
 
@@ -847,7 +925,6 @@ nav.main-nav i {
     height: calc(100vh - 60px);
   }
 
-  /* Header */
   .header {
     flex-direction: row;
     align-items: center;
@@ -877,25 +954,12 @@ nav.main-nav i {
     font-size: 16px;
   }
 
-  .header img {
-    width: 35px;
-    height: 35px;
-  }
-
-  .header .user a i {
-    font-size: 18px;
-    margin-right: 5px;
-  }
-
-  /* Filter controls */
-
   .header-container {
     position: relative;
   }
 
-  /* Filters Toggle Button */
   .filters-toggle-btn {
-    display: none; /* Hidden on larger screens */
+    display: none;
     padding: 0.5rem 1rem;
     padding-right: 2rem;
     border-radius: 20px;
@@ -945,13 +1009,13 @@ nav.main-nav i {
   }
 
   .dropdown-menu {
-    position: absolute; /* Override the fixed positioning */
+    position: absolute;
     top: 100%;
-    left: 0; /* Align with .filter-btn */
+    left: 0;
     width: auto;
     min-width: 130px;
     padding: 0.5rem;
-    transform: none; /* Remove centering transform */
+    transform: none;
   }
 
   .date-filters {
@@ -963,11 +1027,10 @@ nav.main-nav i {
     padding: 0.4rem;
   }
 
-  /* Recent downloads */
   .recent-downloads {
     padding: 10px;
-    max-height: calc(100vh - 160px); /* Adjusted for mobile header */
-    overflow-y: auto; /* Ensure vertical scrolling */
+    max-height: calc(100vh - 160px);
+    overflow-y: auto;
     overflow-x: hidden;
   }
 
@@ -1039,7 +1102,6 @@ nav.main-nav i {
     right: 0;
   }
 
-  /* Featured documents */
   .featured-documents {
     padding: 10px;
     width: 100%;
@@ -1105,7 +1167,6 @@ nav.main-nav i {
     font-size: 0.8rem;
   }
 
-  /* Modal */
   .modal-content {
     width: 90%;
     max-width: 280px;
@@ -1129,7 +1190,6 @@ nav.main-nav i {
     right: 12px;
   }
 
-  /* No results message */
   .no-results {
     font-size: 0.9rem;
     padding: 15px;
@@ -1140,6 +1200,7 @@ nav.main-nav i {
     line-height: 1.5;
   }
 }
+
 @media (max-width: 479px) {
   nav.main-nav {
     padding: 0 10px;
@@ -1170,8 +1231,6 @@ nav.main-nav i {
     right: 35px;
     font-size: 14px;
   }
-
-  /* Removed the first .filter-btn block and merged into the second one below */
 
   .dropdown-menu {
     position: static;
@@ -1366,16 +1425,15 @@ nav.main-nav i {
   }
 
   .featured-scroller {
-    grid-template-columns: repeat(auto-fit, minmax(155px, 2fr));
+    grid-template-columns: repeat(auto-fit, minmax(140px, 2fr));
     display: grid;
     justify-content: flex-start;
     grid-gap: 10px;
-    margin: auto;
-    width: 97%;
+    width: 100%;
   }
 
   .featured-scroller .download-card {
-    width: 170px;
+    width: 165px;
     height: 160px;
     padding: 6px;
     margin: 0px;
