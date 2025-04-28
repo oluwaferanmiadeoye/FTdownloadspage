@@ -245,7 +245,8 @@ function initFilters() {
         filterGroup.classList.add('active');
       }
 
-      activeFilters.currentType = this.getAttribute('data-type').toLowerCase();
+      // Store currentType in title case to match activeFilters.dateFilters keys
+      activeFilters.currentType = this.getAttribute('data-type');
       filterButtons.forEach(btn => btn.classList.remove('active'));
       this.classList.add('active');
       currentPage = 1;
@@ -256,7 +257,7 @@ function initFilters() {
 
   yearSelects.forEach(select => {
     select.addEventListener('change', function () {
-      const filterType = this.closest('.filter-group').querySelector('.filter-btn').getAttribute('data-type').toLowerCase();
+      const filterType = this.closest('.filter-group').querySelector('.filter-btn').getAttribute('data-type');
       activeFilters.dateFilters[filterType].year = this.value;
       currentPage = 1;
       renderFilteredCards();
@@ -266,7 +267,7 @@ function initFilters() {
 
   monthSelects.forEach(select => {
     select.addEventListener('change', function () {
-      const filterType = this.closest('.filter-group').querySelector('.filter-btn').getAttribute('data-type').toLowerCase();
+      const filterType = this.closest('.filter-group').querySelector('.filter-btn').getAttribute('data-type');
       activeFilters.dateFilters[filterType].month = this.value;
       currentPage = 1;
       renderFilteredCards();
@@ -293,7 +294,7 @@ function filterData(data, searchTerm = '') {
   }
 
   if (activeFilters.currentType !== 'all') {
-    filteredData = filteredData.filter(item => item.type.toLowerCase() === activeFilters.currentType);
+    filteredData = filteredData.filter(item => item.type === activeFilters.currentType);
   }
 
   const currentFilter = activeFilters.dateFilters[activeFilters.currentType];

@@ -43,8 +43,8 @@ nav.main-nav i.hamburger {
 .hamburger-wrapper {
   display: inline-block;
   transition: transform 0.5s ease;
-  z-index: 100000001; /* Higher than both nav.main-nav and nav-menu */
-  position: relative; /* Apply the spin animation to the wrapper */
+  z-index: 100000001;
+  position: relative;
 }
 
 .hamburger-wrapper.active {
@@ -53,7 +53,7 @@ nav.main-nav i.hamburger {
 
 nav.main-nav i.hamburger.active {
   transform: rotate(360deg);
-  opacity: 1; /* Ensure it stays visible after spinning */
+  opacity: 1;
   visibility: visible;
 }
 
@@ -65,9 +65,8 @@ nav.main-nav i.hamburger.active {
   color: #000000;
 }
 
-/* Optional: Ensure the nav menu doesn't interfere */
 .nav-menu.active {
-  left: 0; /* Adjust based on your existing styles */
+  left: 0;
 }
 
 .nav-menu {
@@ -679,10 +678,10 @@ nav.main-nav i.hamburger.active {
 #shareModalThumbnail {
   max-width: 100%;
   height: auto;
-  max-height: 180px; /* Match the download modal's thumbnail height */
+  max-height: 180px;
   display: block;
-  margin: 0 auto 15px; /* Center and add spacing */
-  border-radius: 8px; /* Optional: match the download modal's style */
+  margin: 0 auto 15px;
+  border-radius: 8px;
 }
 
 .modal-actions {
@@ -719,10 +718,10 @@ nav.main-nav i.hamburger.active {
 .modal-content img {
   max-width: 100%;
   height: auto;
-  max-height: 200px; /* Adjust this value based on the download modal's thumbnail size */
+  max-height: 200px;
   display: block;
-  margin: 0 auto 15px; /* Center the image and add spacing below */
-  border-radius: 8px; /* Optional: if the download modal's thumbnail has rounded corners */
+  margin: 0 auto 15px;
+  border-radius: 8px;
 }
 
 .modal-option {
