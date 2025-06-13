@@ -575,7 +575,6 @@ function downloadFile(url, title) {
   a.click();
   document.body.removeChild(a);
 }
-
 function openLoginModal(event) {
   event.preventDefault();
   const modal = document.getElementById('loginModal');
@@ -636,20 +635,9 @@ function initializeModalListeners() {
 
     loginSubmitBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      const email = loginEmail.value.trim();
-      if (!email) {
-        alert('Please enter a valid email address.');
-        loginEmail.focus();
-        return;
-      }
-      if (!/\S+@\S+\.\S+/.test(email)) {
-        alert('Please enter a valid email format.');
-        loginEmail.focus();
-        return;
-      }
       loginModal.style.display = 'none';
       loginEmail.value = '';
-      window.location.href = 'dashboard.html'; // Redirect to dashboard
+      window.location.href = 'dashboard.html';
     });
 
     loginEmail.addEventListener('keypress', (e) => {
@@ -659,3 +647,4 @@ function initializeModalListeners() {
     });
   }
 }
+

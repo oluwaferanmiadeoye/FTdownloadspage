@@ -46,6 +46,20 @@ nav.main-nav i.hamburger {
   transition: transform 0.5s ease;
   z-index: 10000000000000000000002;
   position: relative;
+  margin: 0px 5px;
+}
+
+.back-button {
+  font-size: 24px;
+  color: #000000;
+  cursor: pointer;
+  display: inline-block;
+  opacity: 1;
+  visibility: visible;
+  z-index: 10000000000000000000002;
+  background-color: #fff;
+  border: none;
+  margin-right: 5px;
 }
 
 .hamburger-wrapper.active {
@@ -648,6 +662,69 @@ nav.main-nav i.hamburger.active {
 
 .pagination-icon-btn:disabled svg {
   stroke: #999;
+}
+
+.section {
+  margin-top: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.section h2 {
+  color: #1a3c34;
+  font-size: 1.25rem;
+  margin: 0 0 15px;
+  font-weight: 600;
+}
+
+.downloads-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.downloads-table th,
+.downloads-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.downloads-table th {
+  background-color: #b1313b;
+  color: #fff;
+  font-weight: 600;
+}
+
+.downloads-table tr:hover {
+  background-color: #fafafa;
+}
+
+.item-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.item-container img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.item-container span {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.no-files {
+  color: #777;
+  font-style: italic;
+  padding: 20px;
+  text-align: center;
 }
 
 .modal {
