@@ -576,11 +576,26 @@ function downloadFile(url, title) {
   document.body.removeChild(a);
 }
 
+function openLoginModal(event) {
+  event.preventDefault();
+  const modal = document.getElementById('loginModal');
+  const emailInput = document.getElementById('loginEmail');
+  if (modal && emailInput) {
+    emailInput.value = '';
+    modal.style.display = 'flex';
+    emailInput.focus();
+  }
+}
+
 function initializeModalListeners() {
   const downloadModal = document.getElementById('downloadModal');
   const downloadModalClose = document.getElementById('modalClose');
   const shareModal = document.getElementById('shareModal');
   const shareModalClose = document.getElementById('shareModalClose');
+  const loginModal = document.getElementById('loginModal');
+  const loginModalClose = document.getElementById('loginModalClose');
+  const loginSubmitBtn = document.getElementById('loginSubmitBtn');
+  const loginEmail = document.getElementById('loginEmail');
 
   if (downloadModal && downloadModalClose) {
     downloadModalClose.addEventListener('click', () => {
@@ -605,35 +620,20 @@ function initializeModalListeners() {
       }
     });
   }
-}
 
-function openLoginModal(event) {
-  event.preventDefault(); // Prevent default anchor behavior
-  const modal = document.getElementById('loginModal');
-  const emailInput = document.getElementById('loginEmail');
-  if (modal && emailInput) {
-    emailInput.value = ''; // Clear input on open
-    modal.style.display = 'flex';
-    emailInput.focus();
-  }
-}
-
-if (loginModal && loginModalClose && loginSubmitBtn && loginEmail) {
-    // Close modal on close button click
+  if (loginModal && loginModalClose && loginSubmitBtn && loginEmail) {
     loginModalClose.addEventListener('click', () => {
       loginModal.style.display = 'none';
-      loginEmail.value = ''; // Clear input on close
+      loginEmail.value = '';
     });
 
-    // Close modal on outside click
     window.addEventListener('click', (e) => {
       if (e.target === loginModal) {
         loginModal.style.display = 'none';
-        loginEmail.value = ''; // Clear input on close
+        loginEmail.value = '';
       }
     });
 
-    // Handle login form submission
     loginSubmitBtn.addEventListener('click', (e) => {
       e.preventDefault();
       const email = loginEmail.value.trim();
@@ -647,17 +647,15 @@ if (loginModal && loginModalClose && loginSubmitBtn && loginEmail) {
         loginEmail.focus();
         return;
       }
-      // Placeholder for actual login stuffs
-      console.log('Login attempt with email:', email);
-      alert('Login functionality to be implemented. Email: ' + email);
       loginModal.style.display = 'none';
-      loginEmail.value = ''; // Clear input after submission
+      loginEmail.value = '';
+      window.location.href = 'dashboard.html'; // Redirect to dashboard
     });
 
-    // Allow Enter key to submit the form
     loginEmail.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
         loginSubmitBtn.click();
       }
     });
+  }
 }

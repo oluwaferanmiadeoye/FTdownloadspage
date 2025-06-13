@@ -1,0 +1,143 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+header {
+  background-color: #fff;
+  color: #b71c1c;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.logout-btn {
+  background-color: #b71c1c;
+  color: #ffffff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.logout-btn i {
+  margin-right: 8px;
+  color: #fff;
+}
+
+.logout-btn:hover {
+  transform: translateY(-2px);
+}
+
+.section {
+  margin-top: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.section h2 {
+  color: #ffffff;
+  font-size: 1.25rem;
+  margin: 0 0 15px;
+  font-weight: 600;
+}
+
+.file-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+.file-card {
+  background-color: #fafafa;
+  border-radius: 8px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.2s;
+}
+
+.file-card:hover {
+  transform: translateY(-2px);
+}
+
+.file-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.file-card h4 {
+  margin: 0;
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.4;
+}
+
+.file-card small {
+  color: #777;
+  font-size: 0.85rem;
+}
+
+.file-card a {
+  color: #b71c1c;
+  text-decoration: none;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: auto;
+}
+
+.file-card a:hover {
+  color: #2e5c52;
+}
+
+.no-files {
+  color: #777;
+  font-style: italic;
+}
+
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 1.2rem;
+  }
+
+  .logout-btn {
+    font-size: 0.8rem;
+    padding: 8px 12px;
+  }
+
+  .container {
+    padding: 10px;
+  }
+
+  .file-list {
+    grid-template-columns: 1fr;
+  }
+}
