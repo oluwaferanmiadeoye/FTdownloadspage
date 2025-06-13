@@ -55,7 +55,9 @@
           </svg>
         </div>
         <div class="user">
-          <a href=""><i class="fas fa-circle-user"></i></a>
+          <a href="" onclick="openLoginModal(event);"
+            ><i class="fas fa-circle-user"></i
+          ></a>
         </div>
       </section>
 
@@ -415,6 +417,26 @@
           </button>
           <button id="twitterBtn" class="modal-option">
             <i class="fab fa-twitter"></i> Share via Twitter
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Login Modal Popup -->
+    <div id="loginModal" class="modal" style="display: none">
+      <div class="modal-content">
+        <span id="loginModalClose" class="modal-close">×</span>
+        <h3>Login to Your Account</h3>
+        <div class="modal-actions">
+          <input
+            type="email"
+            id="loginEmail"
+            placeholder="Enter your email"
+            class="modal-input"
+            required
+          />
+          <button id="loginSubmitBtn" class="modal-option">
+            <i class="fas fa-sign-in-alt"></i> Login
           </button>
         </div>
       </div>

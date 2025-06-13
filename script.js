@@ -606,3 +606,58 @@ function initializeModalListeners() {
     });
   }
 }
+
+function openLoginModal(event) {
+  event.preventDefault(); // Prevent default anchor behavior
+  const modal = document.getElementById('loginModal');
+  const emailInput = document.getElementById('loginEmail');
+  if (modal && emailInput) {
+    emailInput.value = ''; // Clear input on open
+    modal.style.display = 'flex';
+    emailInput.focus();
+  }
+}
+
+if (loginModal && loginModalClose && loginSubmitBtn && loginEmail) {
+    // Close modal on close button click
+    loginModalClose.addEventListener('click', () => {
+      loginModal.style.display = 'none';
+      loginEmail.value = ''; // Clear input on close
+    });
+
+    // Close modal on outside click
+    window.addEventListener('click', (e) => {
+      if (e.target === loginModal) {
+        loginModal.style.display = 'none';
+        loginEmail.value = ''; // Clear input on close
+      }
+    });
+
+    // Handle login form submission
+    loginSubmitBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const email = loginEmail.value.trim();
+      if (!email) {
+        alert('Please enter a valid email address.');
+        loginEmail.focus();
+        return;
+      }
+      if (!/\S+@\S+\.\S+/.test(email)) {
+        alert('Please enter a valid email format.');
+        loginEmail.focus();
+        return;
+      }
+      // Placeholder for actual login stuffs
+      console.log('Login attempt with email:', email);
+      alert('Login functionality to be implemented. Email: ' + email);
+      loginModal.style.display = 'none';
+      loginEmail.value = ''; // Clear input after submission
+    });
+
+    // Allow Enter key to submit the form
+    loginEmail.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        loginSubmitBtn.click();
+      }
+    });
+}
