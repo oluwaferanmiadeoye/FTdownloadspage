@@ -904,6 +904,22 @@ nav.main-nav i.hamburger.active {
   margin-right: 8px;
 }
 
+.downloads-section .download-container {
+  padding: 20px;
+  max-width: 100%;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-bottom: 1px solid #ccc;
+  position: relative;
+}
+
+.downloads-section .download-container h2 {
+  font-size: 13px;
+  color: #333;
+  font-weight: 700;
+}
+
 .modal-option:hover {
   background-color: #ffffff;
   color: #b1313b;

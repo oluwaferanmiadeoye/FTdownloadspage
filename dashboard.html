@@ -12,15 +12,19 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
     <link rel="shortcut icon" href="lfw_.png" type="image/x-icon" />
-    <title>Download Page | Living Faith Church</title>
+    <title>Dashboard</title>
   </head>
   <body>
     <nav class="main-nav">
-        <div class="back">
-     <button onclick="window.location.href='index.html'" title="Back to Home" class="back-button">
+      <div class="back">
+        <button
+          onclick="window.location.href='index.html'"
+          title="Back to Home"
+          class="back-button"
+        >
           <i class="fas fa-chevron-left"></i>
         </button>
-    </div>
+      </div>
       <span class="hamburger-wrapper">
         <i class="fa-solid fa-bars hamburger"></i>
       </span>
@@ -68,7 +72,7 @@
 
       <section class="recent-downloads">
         <div class="header-container">
-          <h2>Recent Downloaded Documents</h2>
+          <h2>Recent Documents</h2>
           <button class="filters-toggle-btn" aria-label="Toggle Filters">
             Filters
             <svg
@@ -81,7 +85,6 @@
             </svg>
           </button>
           <div class="filter-controls">
-            <!-- All Downloads Filter -->
             <div class="filter-group">
               <button class="filter-btn active" data-type="all">
                 All
@@ -151,7 +154,6 @@
                 </div>
               </div>
             </div>
-            <!-- Prophetic Focus Filter -->
             <div class="filter-group">
               <button class="filter-btn" data-type="Prophetic Focus">
                 Prophetic Focus
@@ -175,7 +177,6 @@
                 </div>
               </div>
             </div>
-            <!-- Inspirational Filter -->
             <div class="filter-group">
               <button class="filter-btn" data-type="Inspirational">
                 Inspirational
@@ -199,7 +200,6 @@
                 </div>
               </div>
             </div>
-            <!-- Prayer Guidelines Filter -->
             <div class="filter-group">
               <button class="filter-btn" data-type="Prayer Guidelines">
                 Prayer Guidelines
@@ -223,7 +223,6 @@
                 </div>
               </div>
             </div>
-            <!-- Special Invitations Filter -->
             <div class="filter-group">
               <button class="filter-btn" data-type="Special Invitations">
                 Special Invitations
@@ -247,7 +246,6 @@
                 </div>
               </div>
             </div>
-            <!-- Prophetic focus (Yearly) -->
             <div class="filter-group">
               <button class="filter-btn" data-type="Year">
                 Prophetic Focus (Yearly)
@@ -358,25 +356,31 @@
           </button>
         </div>
       </section>
-    
-      
-        
-<div class="section">
-      <h2>Downloaded Files</h2>
-      <table class="downloads-table" id="downloadsTable">
-        <thead>
-          <tr>
-            <th>Item Downloaded</th>
-            <th>Time It Was Downloaded</th>
-          </tr>
-        </thead>
-        <tbody id="downloadsTableBody"></tbody>
-      </table>
-    </div>
-  
-    
 
-    <!-- Download Options Popup -->
+      <section class="downloads-section">
+        <div class="download-container">
+          <h2>Downloaded Files</h2>
+        </div>
+        <div class="downloads-container">
+          <table class="downloads-table" id="downloadsTable">
+            <thead>
+              <tr>
+                <th>Item Downloaded</th>
+                <th>Date</th>
+                <th>Time Downloaded</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="downloadsTableBody"></tbody>
+          </table>
+          <div class="no-data">No downloaded files.</div>
+          <div class="pagination" id="pagination-controls">
+            <!-- Pagination buttons will be added dynamically -->
+          </div>
+        </div>
+      </section>
+    </div>
+
     <div id="downloadModal" class="modal" style="display: none">
       <div class="modal-content">
         <span id="modalClose" class="modal-close">×</span>
@@ -391,14 +395,13 @@
           <button id="addToLibraryBtn" class="modal-option">
             <i class="fas fa-book"></i> Add to Library
           </button>
-          <button id="downloadNowBtn" class="modal-option">
+          <button id="downloadBtn" class="modal-option">
             <i class="fas fa-download"></i> Download Now
           </button>
         </div>
       </div>
     </div>
 
-    <!-- Share Options Popup -->
     <div id="shareModal" class="modal" style="display: none">
       <div class="modal-content">
         <span id="shareModalClose" class="modal-close">×</span>
@@ -429,7 +432,20 @@
       </div>
     </div>
 
-    
+    <div id="loginModal" class="modal" style="display: none">
+      <div class="modal-content">
+        <span id="loginModalClose" class="modal-close">×</span>
+        <h3>Login</h3>
+        <input
+          id="loginEmail"
+          type="email"
+          placeholder="Enter your email"
+          required
+        />
+        <button id="loginSubmitBtn" class="modal-option">Submit</button>
+      </div>
+    </div>
+
     <script src="dash.js"></script>
   </body>
 </html>
