@@ -32,7 +32,7 @@ nav.main-nav {
 }
 
 nav.main-nav i.hamburger {
-  font-size: 24px;
+  font-size: 20px;
   color: #000000;
   cursor: pointer;
   display: inline-block;
@@ -50,7 +50,7 @@ nav.main-nav i.hamburger {
 }
 
 .back-button {
-  font-size: 24px;
+  font-size: 20px;
   color: #000000;
   cursor: pointer;
   display: inline-block;
@@ -60,6 +60,7 @@ nav.main-nav i.hamburger {
   background-color: #fff;
   border: none;
   margin-right: 5px;
+  margin-top: -2px;
 }
 
 .hamburger-wrapper.active {
@@ -130,10 +131,10 @@ nav.main-nav i.hamburger.active {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px px;
-  border-bottom: 1px solid #ccc;
+  padding: 15px 10px;
   margin-top: 10px;
   z-index: 1000000000000;
+  margin-bottom: 8px;
 }
 
 .header .user a i {
@@ -241,17 +242,18 @@ nav.main-nav i.hamburger.active {
 }
 
 .filter-btn {
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.6rem;
   padding-right: 2rem;
   border-radius: 20px;
   border: 1px solid #e0e0e0;
   background: white;
   color: #333;
   cursor: pointer;
-  font-size: 0.85rem;
+  font-size: 0.5rem;
   transition: all 0.2s ease;
   position: relative;
   white-space: nowrap;
+  font-weight: 600;
 }
 
 .filter-btn:hover {
@@ -682,20 +684,27 @@ nav.main-nav i.hamburger.active {
 .downloads-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.9rem;
+  font-size: 0.6rem;
 }
 
 .downloads-table th,
 .downloads-table td {
   padding: 12px;
-  text-align: left;
   border-bottom: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  align-items: center;
+  text-align: center;
 }
 
 .downloads-table th {
   background-color: #b1313b;
   color: #fff;
   font-weight: 600;
+  width: 20px;
+  text-align: center;
+}
+
+.downloads-table th.actions {
 }
 
 .downloads-table tr:hover {
@@ -947,6 +956,13 @@ nav.main-nav i.hamburger.active {
     flex-grow: 1;
   }
 
+  .downloads-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.47rem;
+    font-weight: 900;
+  }
+
   .search-box {
     font-size: 0.9rem;
     padding: 12px 10px 12px 15px;
@@ -1076,6 +1092,8 @@ nav.main-nav i.hamburger.active {
   .modal-close {
     font-size: 18px;
   }
+
+  .d;
 }
 
 @media (max-width: 767px) {
